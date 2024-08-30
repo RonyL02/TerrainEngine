@@ -1,7 +1,7 @@
 #include "engine.h"
 #include <iostream>
-#include <glad/glad.h>
-#include <glfw/glfw3.h>
+// #include <glad/glad.h>
+#include <GLFW/glfw3.h>
 int LibFunc(const char *str)
 {
 
@@ -23,11 +23,11 @@ int LibFunc(const char *str)
 
     glfwMakeContextCurrent(window);
 
-    if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
-    {
-        std::cout << "Failed to initialize GLAD" << std::endl;
-        return -1;
-    }
+    // if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
+    // {
+    //     std::cout << "Failed to initialize GLAD" << std::endl;
+    //     return -1;
+    // }
     if (!window)
     {
         glfwTerminate();
