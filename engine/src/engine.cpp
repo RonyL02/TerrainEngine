@@ -1,7 +1,7 @@
 #include "engine.h"
 #include <iostream>
-#include <glfw3.h>
-
+#include <glad/glad.h>
+#include <glfw/glfw3.h>
 int LibFunc(const char *str)
 {
 
@@ -14,6 +14,20 @@ int LibFunc(const char *str)
 
     /* Create a windowed mode window and its OpenGL context */
     window = glfwCreateWindow(640, 480, "Hello World", NULL, NULL);
+    if (window == NULL)
+    {
+        std::cout << "Failed to create GLFW window\n";
+        glfwTerminate();
+        return -1;
+    }
+
+    glfwMakeContextCurrent(window);
+
+    if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
+    {
+        std::cout << "Failed to initialize GLAD" << std::endl;
+        return -1;
+    }
     if (!window)
     {
         glfwTerminate();

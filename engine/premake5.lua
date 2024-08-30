@@ -8,8 +8,8 @@ project "Engine"
     targetdir ("..bin/" .. outputdir)
     objdir ("%{wks.location}/obj/" .. outputdir .. "/%{prj.name}")
 
-    files { "src/**.h", "src/**.cpp" }
-    includedirs { "src/**.h", "../dependencies/includes/glfw" }
+    files { "src/**.h", "src/**.cpp","src/**.c" }
+    includedirs { "src/**.h", "../dependencies/includes" }
 
     -- Link GLFW
     libdirs { "../dependencies/libs/glfw" }
