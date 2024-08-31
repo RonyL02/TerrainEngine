@@ -1,31 +1,25 @@
-cmake_minimum_required(VERSION 3.15)
+cmake_minimum_required(VERSION 3.16)
 
-# Set the project name and C++ standard
-project(YourProject CXX)
+project(TerrainEngine)
 
-# Set the default build type to Release if not specified
-if(NOT CMAKE_BUILD_TYPE)
-    set(CMAKE_BUILD_TYPE Release)
-endif()
+include("${CMAKE_CURRENT_LIST_DIR}/cmake/CPM.cmake")
 
-# Option to switch between static and dynamic linking
-option(BUILD_SHARED_LIBS "Build shared libraries instead of static" OFF)
+CPMAddPackage("gh:glfw/glfw#3.4")
+CPMAddPackage(
+    libglew_static
+    GIT_REPOSITORY https://github.com/Perlmint/glew-cmake.git
+    GIT_TAG        glew-cmake-2.2.0
+)
 
-# Option to choose the C++ standard version
-set(CMAKE_CXX_STANDARD_REQUIRED ON)
+file(GLOB_RECURSE SOURCES src/*.cpp)
 
-# Optionally specify the architecture (default to native)
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -march=native")
-set(CMAKE_PREFIX_PATH "./vcpkg_installed/x64-windows/share/glfw3")
+add_executable(${exe_name} ${SOURCES})
 
-message("${CMAKE_PREFIX_PATH}")
+target_link_libraries(${exe_name} PRIVATE glfw)
+target_link_libraries(${exe_name} PRIVATE opengl32)
+target_link_libraries(${exe_name} PRIVATE libglew_static)
 
 
-# Include the Engine and Sandbox subdirectories
-add_subdirectory(Engine)
-add_subdirectory(Sandbox)
-
-set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})
-set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})
-
-set(DIRECTORY PROPERTY VS_STARTUP_PROJECT "Sandbox")
+set_target_properties(${exe_name} PROPERTIES
+    RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/../bin
+)
