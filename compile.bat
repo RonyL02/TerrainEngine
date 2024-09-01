@@ -1,5 +1,3 @@
-premake5 clean
-premake5 gmake2
-cd build
-make
-cd ..
+
+cmake --preset default -G "Unix Makefiles"  . -B ./build 
+cmake --build build

@@ -1,0 +1,16 @@
+{
+    "version": 3,
+    "configurePresets": [
+        {
+            "name": "default",
+            "binaryDir": "bin",
+            "cacheVariables": {
+                "exe_name":"eee",
+                "CMAKE_C_COMPILER": "clang",
+                "CMAKE_CXX_COMPILER": "clang++",
+                "CMAKE_CXX_STANDARD": "20",
+                "CMAKE_BUILD_TYPE": "Release"
+            }
+        }
+    ]
+}
