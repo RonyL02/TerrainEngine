@@ -1,15 +1,7 @@
-#include "GLFWWindow.h"
+#include "Window.h"
 #include <spdlog/spdlog.h>
-TE::GLFWWindow::GLFWWindow(int width, int height, const char *title)
-    : m_Width(width), m_Height(height), m_Title(title), m_Window(nullptr)
-{
-    Create();
-}
-
-TE::GLFWWindow::~GLFWWindow()
-{
-    Close();
-}
+#include "../../Input.h"
+#include "Events.h"
 
 void TE::GLFWWindow::Create()
 {
@@ -30,7 +22,7 @@ void TE::GLFWWindow::Create()
     if (m_Window == NULL)
     {
         spdlog::error("GLFWWINDOW::Failed to create GLFW window");
-        Close();
+        Destroy();
         return;
     }
 
@@ -40,14 +32,22 @@ void TE::GLFWWindow::Create()
     if (GLEW_OK != err)
     {
         spdlog::error("GLFWWINDOW::Failed to initialize glew: {}", reinterpret_cast<const char *>(glewGetErrorString(err)));
-        Close();
+        Destroy();
         return;
     }
 
     spdlog::info("GLFWWINDOW::GLFW window initialized successfully");
+
+    RegisterEventCallbacks();
 }
 
-void TE::GLFWWindow::Close()
+void TE::GLFWWindow::RegisterEventCallbacks()
+{
+    glfwSetKeyCallback(m_Window, GLFWKeyCallback);
+    glfwSetMouseButtonCallback(m_Window, GLFWMouseButtonCallback);
+}
+
+void TE::GLFWWindow::Destroy()
 {
     if (m_Window != nullptr)
     {
@@ -59,14 +59,15 @@ void TE::GLFWWindow::Close()
     glfwTerminate();
 }
 
-void TE::GLFWWindow::SwapBuffers()
+void TE::GLFWWindow::Update()
 {
     glfwSwapBuffers(m_Window);
+    glfwPollEvents();
 }
 
-void TE::GLFWWindow::PollEvents()
+void TE::GLFWWindow::SetShouldClose()
 {
-    glfwPollEvents();
+    glfwSetWindowShouldClose(m_Window, GLFW_TRUE);
 }
 
 bool TE::GLFWWindow::ShouldClose()
