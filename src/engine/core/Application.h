@@ -1,11 +1,11 @@
 #pragma once
-#include "GLFWWindow.h"
+#include "Window/Window.h"
+#include "../utils.h"
 
 namespace TE
 {
     class Application
     {
-
     public:
         Application(int width, int height, const char *title);
         ~Application() = default;
@@ -13,7 +13,7 @@ namespace TE
         void Run();
 
     private:
-        GLFWWindow m_Window;
+        Box<Window> m_Window;
     };
 
 }
