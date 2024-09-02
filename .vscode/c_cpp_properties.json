@@ -3,9 +3,9 @@
         {
             "name": "Win32",
             "includePath": [
-                "${workspaceFolder}/dependencies/glfw/include",
                 "${workspaceFolder}/build/_deps/glew-cmake-src/include",
-                "${workspaceFolder}/build/_deps/glfw-src/include"
+                "${workspaceFolder}/build/_deps/glfw-src/include",
+                "${workspaceFolder}/build/_deps/spdlog-src/include"
             ],
             "defines": [
                 "_DEBUG",
