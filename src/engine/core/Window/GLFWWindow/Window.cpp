@@ -1,6 +1,7 @@
 #include "Window.h"
 #include <spdlog/spdlog.h>
 #include "../../Input.h"
+#include "../../../Graphics/OpenGL/Defines.h"
 #include "Events.h"
 
 void TE::GLFWWindow::Create()
@@ -13,8 +14,8 @@ void TE::GLFWWindow::Create()
         return;
     }
 
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 6);
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, TE_OPENGL_VERSION_MAJOR);
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, TE_OPENGL_VERSION_MINOR);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
     m_Window = glfwCreateWindow(m_Width, m_Height, m_Title, NULL, NULL);
@@ -38,6 +39,10 @@ void TE::GLFWWindow::Create()
 
     spdlog::info("GLFWWINDOW::GLFW window initialized successfully");
 
+    spdlog::info("GLFWWINDOW::Using opengl {}", reinterpret_cast<const char *>(glGetString(GL_VERSION)));
+
+    glViewport(0, 0, m_Width, m_Height);
+
     RegisterEventCallbacks();
 }
 
@@ -45,6 +50,7 @@ void TE::GLFWWindow::RegisterEventCallbacks()
 {
     glfwSetKeyCallback(m_Window, GLFWKeyCallback);
     glfwSetMouseButtonCallback(m_Window, GLFWMouseButtonCallback);
+    glfwSetFramebufferSizeCallback(m_Window, GLFWFramebufferSizeCallback);
 }
 
 void TE::GLFWWindow::Destroy()

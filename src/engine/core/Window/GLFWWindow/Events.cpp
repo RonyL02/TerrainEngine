@@ -24,3 +24,8 @@ void TE::GLFWMouseButtonCallback(GLFWwindow *window, int button, int action, int
         Input::SetKeyState((KeyCode)button, Input::KeyState::KEY_UP);
     }
 }
+
+void TE::GLFWFramebufferSizeCallback(GLFWwindow *window, int width, int height)
+{
+    glViewport(0, 0, width, height);
+}
