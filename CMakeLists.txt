@@ -12,11 +12,15 @@ CPMAddPackage(
     GIT_TAG        glew-cmake-2.2.0)
 CPMAddPackage("gh:gabime/spdlog@1.14.1")
 CPMAddPackage("gh:g-truc/glm#1.0.1")
-# CPMAddPackage(
-#     stb
-#     GIT_REPOSITORY  https://github.com/gracicot/stb-cmake.git
-#     GIT_TAG master
-# )
+
+CPMAddPackage(
+  NAME stb
+  GIT_REPOSITORY https://github.com/nothings/stb.git
+  GIT_TAG master
+  DOWNLOAD_ONLY YES
+)
+
+
 file(GLOB_RECURSE SOURCES src/*.cpp)
 
 add_executable(${exe_name} ${SOURCES})
@@ -26,8 +30,12 @@ target_link_libraries(${exe_name} PRIVATE opengl32)
 target_link_libraries(${exe_name} PRIVATE libglew_static)
 target_link_libraries(${exe_name} PRIVATE spdlog)
 target_link_libraries(${exe_name} PRIVATE glm::glm)
-
-# target_link_libraries(${exe_name} PRIVATE image)
+if (stb_ADDED)
+  target_include_directories(${exe_name} PRIVATE ${stb_SOURCE_DIR})
+  target_sources(${exe_name} PRIVATE
+  ${stb_SOURCE_DIR}/stb_image.h
+)
+endif()
 
 set_target_properties(${exe_name} PROPERTIES
     RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/../bin

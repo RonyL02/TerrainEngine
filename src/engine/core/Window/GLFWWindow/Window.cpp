@@ -55,6 +55,12 @@ void TE::GLFWWindow::RegisterEventCallbacks()
 
 void TE::GLFWWindow::Destroy()
 {
+    GLenum error = glGetError();
+    if (error != GL_NO_ERROR)
+    {
+        spdlog::error("OpenGL Error: {}", error);
+    }
+
     if (m_Window != nullptr)
     {
         spdlog::info("GLFWWINDOW::Terminating GLFW window...");

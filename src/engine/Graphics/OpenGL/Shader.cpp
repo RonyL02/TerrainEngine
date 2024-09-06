@@ -111,7 +111,21 @@ GLuint TE::Shader::LinkProgram(GLuint vertexShader, GLuint fragmentShader)
 
     glDeleteShader(vertexShader);
     glDeleteShader(fragmentShader);
-    // Unbind();
 
     return m_Id;
+}
+
+void TE::Shader::SetBool(const GLchar *name, GLboolean value)
+{
+    glUniform1i(glGetUniformLocation(m_Id, name), (int)value);
+}
+
+void TE::Shader::SetInt(const GLchar *name, GLuint value)
+{
+    glUniform1i(glGetUniformLocation(m_Id, name), value);
+}
+
+void TE::Shader::SetFloat(const GLchar *name, GLfloat value)
+{
+    glUniform1f(glGetUniformLocation(m_Id, name), value);
 }
