@@ -1,6 +1,6 @@
 #pragma once
 #include "Window/Window.h"
-#include "../utils.h"
+#include "../Utils.h"
 
 namespace TE
 {
@@ -13,7 +13,7 @@ namespace TE
         void Run();
 
     private:
-        Box<Window> m_Window;
+        Ref<Window> m_Window;
     };
 
 }

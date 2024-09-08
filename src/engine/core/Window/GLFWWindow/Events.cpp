@@ -1,5 +1,6 @@
 #include "Events.h"
 #include "../../Input.h"
+#include "../Window.h"
 
 void TE::GLFWKeyCallback(GLFWwindow *window, int key, int scancode, int action, int mods)
 {
@@ -23,4 +24,11 @@ void TE::GLFWMouseButtonCallback(GLFWwindow *window, int button, int action, int
     {
         Input::SetKeyState((KeyCode)button, Input::KeyState::KEY_UP);
     }
+}
+
+void TE::GLFWFramebufferSizeCallback(GLFWwindow *window, int width, int height)
+{
+    Window::GetInstance()->SetHeight(height);
+    Window::GetInstance()->SetWidth(width);
+    glViewport(0, 0, width, height);
 }

@@ -4,7 +4,6 @@
 
 namespace TE
 {
-
     class Input
     {
     public:
