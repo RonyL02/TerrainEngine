@@ -1,6 +1,8 @@
 #include "Shader.h"
 #include <fstream>
 #include <spdlog/spdlog.h>
+#include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/type_ptr.hpp>
 
 #include "Defines.h"
 
@@ -128,4 +130,29 @@ void TE::Shader::SetInt(const GLchar *name, GLuint value)
 void TE::Shader::SetFloat(const GLchar *name, GLfloat value)
 {
     glUniform1f(glGetUniformLocation(m_Id, name), value);
+}
+
+void TE::Shader::SetVec2f(const GLchar *name, glm::vec2 value)
+{
+    glUniform2fv(glGetUniformLocation(m_Id, name), 1, glm::value_ptr(value));
+}
+
+void TE::Shader::SetVec3f(const GLchar *name, glm::vec3 value)
+{
+    glUniform3fv(glGetUniformLocation(m_Id, name), 1, glm::value_ptr(value));
+}
+
+void TE::Shader::SetVec4f(const GLchar *name, glm::vec4 value)
+{
+    glUniform4fv(glGetUniformLocation(m_Id, name), 1, glm::value_ptr(value));
+}
+
+void TE::Shader::SetMat3f(const GLchar *name, glm::mat3 value)
+{
+    glUniformMatrix3fv(glGetUniformLocation(m_Id, name), 1, GL_FALSE, glm::value_ptr(value));
+}
+
+void TE::Shader::SetMat4f(const GLchar *name, glm::mat4 value)
+{
+    glUniformMatrix4fv(glGetUniformLocation(m_Id, name), 1, GL_FALSE, glm::value_ptr(value));
 }

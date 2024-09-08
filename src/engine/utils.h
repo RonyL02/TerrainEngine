@@ -15,7 +15,7 @@ std::unique_ptr<T> MakeBox(Args &&...args)
 }
 
 template <typename T, typename... Args>
-std::unique_ptr<T> MakeRef(Args &&...args)
+std::shared_ptr<T> MakeRef(Args &&...args)
 {
     return std::make_shared<T>(std::forward<Args>(args)...);
 }

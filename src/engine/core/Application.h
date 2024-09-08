@@ -13,7 +13,7 @@ namespace TE
         void Run();
 
     private:
-        Box<Window> m_Window;
+        Ref<Window> m_Window;
     };
 
 }
