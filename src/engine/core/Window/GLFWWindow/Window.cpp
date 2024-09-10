@@ -36,6 +36,7 @@ void TE::GLFWWindow::Create()
         Destroy();
         return;
     }
+    glfwSwapInterval(1);
 
     spdlog::info("GLFWWINDOW::GLFW window initialized successfully");
 
@@ -51,6 +52,7 @@ void TE::GLFWWindow::RegisterEventCallbacks()
     glfwSetKeyCallback(m_Window, GLFWKeyCallback);
     glfwSetMouseButtonCallback(m_Window, GLFWMouseButtonCallback);
     glfwSetFramebufferSizeCallback(m_Window, GLFWFramebufferSizeCallback);
+    glfwSetCursorPosCallback(m_Window, GLFWMouseCallback);
 }
 
 void TE::GLFWWindow::Destroy()
@@ -96,4 +98,9 @@ bool TE::GLFWWindow::ShouldClose()
         spdlog::info("GLFWWINDOW::GLFW received closing event");
     }
     return shouldClose;
+}
+
+void TE::GLFWWindow::DisableCursor(bool disable)
+{
+    glfwSetInputMode(m_Window, GLFW_CURSOR, disable ? GLFW_CURSOR_DISABLED : GLFW_CURSOR_NORMAL);
 }

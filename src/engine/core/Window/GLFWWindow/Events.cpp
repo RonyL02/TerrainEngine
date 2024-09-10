@@ -32,3 +32,12 @@ void TE::GLFWFramebufferSizeCallback(GLFWwindow *window, int width, int height)
     Window::GetInstance()->SetWidth(width);
     glViewport(0, 0, width, height);
 }
+
+void TE::GLFWMouseCallback(GLFWwindow *window, double xpos, double ypos)
+{
+    double xoffset = xpos - Input::GetCurrentMousePosition().first;
+    double yoffset = Input::GetCurrentMousePosition().second - ypos;
+
+    Input::SetCurrentMousePosition(xpos, ypos);
+    Input::SetMouseOffset(xoffset, yoffset);
+}
