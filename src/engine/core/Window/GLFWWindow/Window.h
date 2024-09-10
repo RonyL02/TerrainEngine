@@ -9,7 +9,6 @@ namespace TE
     class GLFWWindow : public Window
     {
     public:
-
         GLFWWindow(int width, int height, const char *title)
             : Window(width, height, title)
         {
@@ -20,6 +19,9 @@ namespace TE
 
         void SetShouldClose() override;
         bool ShouldClose() override;
+
+        void DisableCursor(bool disable);
+
         void Destroy() override;
 
     private:

@@ -18,6 +18,8 @@ namespace TE
         virtual void SetShouldClose() = 0;
         virtual bool ShouldClose() = 0;
 
+        virtual void DisableCursor(bool disable) = 0;
+
         static Ref<Window> InitializeWindow(int width, int height, const char *title);
 
         static Ref<Window> GetInstance();
@@ -28,6 +30,7 @@ namespace TE
         void SetHeight(int height);
 
         virtual void Destroy() = 0;
+
     protected:
         static Ref<Window> m_WindowInstance;
 
