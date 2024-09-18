@@ -15,10 +15,12 @@ TE::Shader::Shader(std::string vertexShaderPath, std::string fragmentShaderPath)
     fragmentShaderId = LoadShader(fragmentShaderPath, GL_FRAGMENT_SHADER);
 
     LinkProgram(vertexShaderId, fragmentShaderId);
+    spdlog::info("shader initialized");
 }
 
 TE::Shader::~Shader()
 {
+    spdlog::error("destroy shader");
     Unbind();
     glDeleteProgram(m_Id);
 }

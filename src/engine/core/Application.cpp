@@ -8,6 +8,7 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 #include "../Entities/Camera.h"
+#include "../Entities/Material.h"
 
 TE::Application::Application(int width, int height, const char *title)
 {
@@ -18,7 +19,10 @@ void TE::Application::Run()
 {
     glEnable(GL_DEPTH_TEST);
 
-    Shader shader = Shader("res/shaders/vertex.glsl", "res/shaders/fragment.glsl");
+    Material material = Material(new Shader("res/shaders/vertex.glsl", "res/shaders/fragment.glsl"),
+                                 new Texture("res/textures/dabadi.png")
+
+    );
     float vertices[] = {
         -0.5f, -0.5f, -0.5f, 0.5f, 0.5f, 0.5f, 0.0f, 0.0f,
         0.5f, -0.5f, -0.5f, 0.5f, 0.5f, 0.5f, 1.0f, 0.0f,
@@ -99,8 +103,6 @@ void TE::Application::Run()
     vb.Unbind();
     va.Unbind();
 
-    Texture texture = Texture("res/textures/dabadi.png");
-
     spdlog::info("APPLICATION::App is running...");
 
     float deltaTime = 0.0f;
@@ -131,14 +133,13 @@ void TE::Application::Run()
             m_Window->SetShouldClose();
         }
 
-        texture.Bind();
-        shader.Bind();
-        shader.SetMat4f("projection", projection);
+        material.Bind();
+        material.GetShader()->SetMat4f("projection", projection);
         glm::mat4 model = glm::mat4(1.0f); // make sure to initialize matrix to identity matrix first
         model = glm::translate(model, {0, 0, 0});
         float angle = 0;
         model = glm::rotate(model, glm::radians(angle), glm::vec3(1.0f, 0.3f, 0.5f));
-        shader.SetMat4f("model", model);
+        material.GetShader()->SetMat4f("model", model);
 
         const float cameraSpeed = 1.75f * deltaTime;
         if (Input::IsKeyDown(KeyCode::KEY_W))
@@ -155,7 +156,7 @@ void TE::Application::Run()
             camera.Move(-cameraSpeed * camera.GetUp());
         // retrieve the matrix uniform locations
 
-        shader.SetMat4f("view", camera.GetViewMatrix());
+        material.GetShader()->SetMat4f("view", camera.GetViewMatrix());
 
         // pass them to the shaders (3 different ways)
         // note: currently we set the projection matrix each frame, but since the projection matrix rarely changes it's often best practice to set it outside the main loop only once.
@@ -168,6 +169,8 @@ void TE::Application::Run()
 
             glDrawArrays(GL_TRIANGLES, 0, 36);
         }
+
+        material.Unbind();
         // glDrawArrays(GL_TRIANGLES, 0, 3);
         // glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
         Input::SetMouseOffset(0, 0);
