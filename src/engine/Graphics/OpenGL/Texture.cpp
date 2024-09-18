@@ -9,7 +9,7 @@ TE::Texture::Texture(std::string filePath)
     glGenTextures(1, &m_Id);
     Bind();
 
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT); 
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
 
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
@@ -29,10 +29,12 @@ TE::Texture::Texture(std::string filePath)
     }
     stbi_image_free(data);
     Unbind();
+    spdlog::info("texture initialized");
 }
 
 TE::Texture::~Texture()
 {
+    spdlog::error("destroy texture");
     glDeleteTextures(1, &m_Id);
 }
 
