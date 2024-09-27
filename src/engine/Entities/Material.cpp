@@ -15,7 +15,7 @@ TE::Material::~Material()
 {
     delete m_Shader;
     delete m_Texture.value();
-    spdlog::error("destroy material");
+    spdlog::info("destroy material");
 }
 
 void TE::Material::Bind()
