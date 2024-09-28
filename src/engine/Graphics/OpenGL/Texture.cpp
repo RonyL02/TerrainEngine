@@ -34,7 +34,7 @@ TE::Texture::Texture(std::string filePath)
 
 TE::Texture::~Texture()
 {
-    spdlog::error("destroy texture");
+    spdlog::info("destroy texture");
     glDeleteTextures(1, &m_Id);
 }
 

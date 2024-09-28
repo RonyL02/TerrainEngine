@@ -20,7 +20,7 @@ TE::Shader::Shader(std::string vertexShaderPath, std::string fragmentShaderPath)
 
 TE::Shader::~Shader()
 {
-    spdlog::error("destroy shader");
+    spdlog::info("destroy shader");
     Unbind();
     glDeleteProgram(m_Id);
 }

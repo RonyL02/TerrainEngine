@@ -9,6 +9,7 @@
 #include <glm/gtc/type_ptr.hpp>
 #include "../Entities/Camera.h"
 #include "../Entities/Material.h"
+#include "../Entities/Mesh.h"
 
 TE::Application::Application(int width, int height, const char *title)
 {
@@ -18,90 +19,26 @@ TE::Application::Application(int width, int height, const char *title)
 void TE::Application::Run()
 {
     glEnable(GL_DEPTH_TEST);
-
+    // glEnable(GL_CULL_FACE);
+    // glCullFace(GL_BACK);
+    // glFrontFace(GL_CCW);
     Material material = Material(new Shader("res/shaders/vertex.glsl", "res/shaders/fragment.glsl"),
                                  new Texture("res/textures/dabadi.png")
 
     );
+
     float vertices[] = {
-        -0.5f, -0.5f, -0.5f, 0.5f, 0.5f, 0.5f, 0.0f, 0.0f,
-        0.5f, -0.5f, -0.5f, 0.5f, 0.5f, 0.5f, 1.0f, 0.0f,
-        0.5f, 0.5f, -0.5f, 0.5f, 0.5f, 0.5f, 1.0f, 1.0f,
-        0.5f, 0.5f, -0.5f, 0.5f, 0.5f, 0.5f, 1.0f, 1.0f,
-        -0.5f, 0.5f, -0.5f, 0.5f, 0.5f, 0.5f, 0.0f, 1.0f,
-        -0.5f, -0.5f, -0.5f, 0.5f, 0.5f, 0.5f, 0.0f, 0.0f,
-
-        -0.5f, -0.5f, 0.5f, 0.5f, 0.5f, 0.5f, 0.0f, 0.0f,
-        0.5f, -0.5f, 0.5f, 0.5f, 0.5f, 0.5f, 1.0f, 0.0f,
-        0.5f, 0.5f, 0.5f, 0.5f, 0.5f, 0.5f, 1.0f, 1.0f,
-        0.5f, 0.5f, 0.5f, 0.5f, 0.5f, 0.5f, 1.0f, 1.0f,
-        -0.5f, 0.5f, 0.5f, 0.5f, 0.5f, 0.5f, 0.0f, 1.0f,
-        -0.5f, -0.5f, 0.5f, 0.5f, 0.5f, 0.5f, 0.0f, 0.0f,
-
-        -0.5f, 0.5f, 0.5f, 0.5f, 0.5f, 0.5f, 1.0f, 0.0f,
-        -0.5f, 0.5f, -0.5f, 0.5f, 0.5f, 0.5f, 1.0f, 1.0f,
-        -0.5f, -0.5f, -0.5f, 0.5f, 0.5f, 0.5f, 0.0f, 1.0f,
-        -0.5f, -0.5f, -0.5f, 0.5f, 0.5f, 0.5f, 0.0f, 1.0f,
-        -0.5f, -0.5f, 0.5f, 0.5f, 0.5f, 0.5f, 0.0f, 0.0f,
-        -0.5f, 0.5f, 0.5f, 0.5f, 0.5f, 0.5f, 1.0f, 0.0f,
-
-        0.5f, 0.5f, 0.5f, 0.5f, 0.5f, 0.5f, 1.0f, 0.0f,
-        0.5f, 0.5f, -0.5f, 0.5f, 0.5f, 0.5f, 1.0f, 1.0f,
-        0.5f, -0.5f, -0.5f, 0.5f, 0.5f, 0.5f, 0.0f, 1.0f,
-        0.5f, -0.5f, -0.5f, 0.5f, 0.5f, 0.5f, 0.0f, 1.0f,
-        0.5f, -0.5f, 0.5f, 0.5f, 0.5f, 0.5f, 0.0f, 0.0f,
-        0.5f, 0.5f, 0.5f, 0.5f, 0.5f, 0.5f, 1.0f, 0.0f,
-
-        -0.5f, -0.5f, -0.5f, 0.5f, 0.5f, 0.5f, 0.0f, 1.0f,
-        0.5f, -0.5f, -0.5f, 0.5f, 0.5f, 0.5f, 1.0f, 1.0f,
-        0.5f, -0.5f, 0.5f, 0.5f, 0.5f, 0.5f, 1.0f, 0.0f,
-        0.5f, -0.5f, 0.5f, 0.5f, 0.5f, 0.5f, 1.0f, 0.0f,
-        -0.5f, -0.5f, 0.5f, 0.5f, 0.5f, 0.5f, 0.0f, 0.0f,
-        -0.5f, -0.5f, -0.5f, 0.5f, 0.5f, 0.5f, 0.0f, 1.0f,
-
-        -0.5f, 0.5f, -0.5f, 0.5f, 0.5f, 0.5f, 0.0f, 1.0f,
-        0.5f, 0.5f, -0.5f, 0.5f, 0.5f, 0.5f, 1.0f, 1.0f,
-        0.5f, 0.5f, 0.5f, 0.5f, 0.5f, 0.5f, 1.0f, 0.0f,
-        0.5f, 0.5f, 0.5f, 0.5f, 0.5f, 0.5f, 1.0f, 0.0f,
-        -0.5f, 0.5f, 0.5f, 0.5f, 0.5f, 0.5f, 0.0f, 0.0f,
-        -0.5f, 0.5f, -0.5f, 0.5f, 0.5f, 0.5f, 0.0f, 1.0f};
-    // world space positions of our cubes
-    glm::vec3 cubePositions[] = {
-        glm::vec3(0.0f, 0.0f, 0.0f),
-        glm::vec3(2.0f, 5.0f, -15.0f),
-        glm::vec3(-1.5f, -2.2f, -2.5f),
-        glm::vec3(-3.8f, -2.0f, -12.3f),
-        glm::vec3(2.4f, -0.4f, -3.5f),
-        glm::vec3(-1.7f, 3.0f, -7.5f),
-        glm::vec3(1.3f, -2.0f, -2.5f),
-        glm::vec3(1.5f, 2.0f, -2.5f),
-        glm::vec3(1.5f, 0.2f, -1.5f),
-        glm::vec3(-1.3f, 1.0f, -1.5f)};
+        -0.5f, -0.5f, 0, 1, 1, 1, 0, 0,
+        0.5f, -0.5f, 0, 1, 1, 1, 1, 0,
+        0, 0.5f, 0, 1, 1, 1, 1, 1};
+    int numOfVertices = sizeof(vertices) / sizeof(float);
 
     unsigned int indices[] = {
-        // note that we start from 0!
-        0, 1, 3, // first Triangle
-        1, 2, 3  // second Triangle
-    };
+        2, 1, 0};
 
-    VertexArray va = VertexArray();
-    VertexBuffer vb = VertexBuffer();
-    // IndexBuffer ib = IndexBuffer();
+    int numOfIndices = sizeof(indices) / sizeof(unsigned int);
 
-    va.Bind();
-
-    vb.Bind();
-    vb.SetData(vertices, sizeof(vertices) / sizeof(float));
-
-    // ib.Bind();
-    // ib.SetData(indices, sizeof(indices) / sizeof(unsigned int));
-
-    va.SetAttribute(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void *)0);
-    va.SetAttribute(1, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void *)(3 * sizeof(float)));
-    va.SetAttribute(2, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void *)(6 * sizeof(float)));
-
-    vb.Unbind();
-    va.Unbind();
+    Mesh mesh = Mesh(vertices, numOfVertices, indices, numOfIndices);
 
     spdlog::info("APPLICATION::App is running...");
 
@@ -161,13 +98,11 @@ void TE::Application::Run()
         // pass them to the shaders (3 different ways)
         // note: currently we set the projection matrix each frame, but since the projection matrix rarely changes it's often best practice to set it outside the main loop only once.
 
-        va.Bind();
-
         // for (unsigned int i = 0; i < 10; i++)
         {
             // calculate the model matrix for each object and pass it to shader before drawing
 
-            glDrawArrays(GL_TRIANGLES, 0, 36);
+            mesh.Draw();
         }
 
         material.Unbind();
