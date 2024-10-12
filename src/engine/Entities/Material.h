@@ -14,10 +14,10 @@ namespace TE
         void Bind();
         void Unbind();
 
-        Shader* GetShader();
+        Shader *GetShader();
 
     private:
-        std::optional<Texture*> m_Texture;
-        Shader* m_Shader;
+        Box<Texture> m_Texture;
+        Box<Shader> m_Shader;
     };
 }

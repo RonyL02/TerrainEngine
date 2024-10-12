@@ -22,19 +22,20 @@ void TE::Application::Run()
     // glEnable(GL_CULL_FACE);
     // glCullFace(GL_BACK);
     // glFrontFace(GL_CCW);
-    Material material = Material(new Shader("res/shaders/vertex.glsl", "res/shaders/fragment.glsl"),
+    Material material = Material(
+        new Shader("res/shaders/vertex.glsl", "res/shaders/fragment.glsl"),
                                  new Texture("res/textures/dabadi.png")
 
     );
 
     float vertices[] = {
-        -0.5f, -0.5f, 0, 1, 1, 1, 0, 0,
-        0.5f, -0.5f, 0, 1, 1, 1, 1, 0,
-        0, 0.5f, 0, 1, 1, 1, 1, 1};
+        -0.5f, -0.5f, 0, 1, 1, 1,    0, 0,
+        0.5f, -0.5f, 0,  1, 1, 1,    1, 0,
+        0, 0.5f, 0,      1, 1, 1,    1, 1};
     int numOfVertices = sizeof(vertices) / sizeof(float);
 
     unsigned int indices[] = {
-        2, 1, 0};
+        0, 1, 2};
 
     int numOfIndices = sizeof(indices) / sizeof(unsigned int);
 

@@ -19,13 +19,13 @@ namespace TE
         glm::vec3 GetUp();
 
     private:
-        glm::vec3 m_Position;
+        glm::vec3 m_Position = {0, 0, 0};
         float m_Pitch = 0;
         float m_Yaw = -90;
 
-        glm::vec3 m_Front = {0,0,-1};
-        glm::vec3 m_Right = {1,0,0};
-        glm::vec3 m_Up = {0,1,0};
+        glm::vec3 m_Front = {0, 0, -1};
+        glm::vec3 m_Right = {1, 0, 0};
+        glm::vec3 m_Up = {0, 1, 0};
 
         const glm::vec3 m_WorldUp = {0, 1, 0};
     };
