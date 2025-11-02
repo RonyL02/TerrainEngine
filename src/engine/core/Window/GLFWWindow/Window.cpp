@@ -73,6 +73,11 @@ void TE::GLFWWindow::Destroy()
     glfwTerminate();
 }
 
+double TE::GLFWWindow::GetTime()
+{
+    return glfwGetTime();
+}
+
 void TE::GLFWWindow::Update()
 {
     glfwSwapBuffers(m_Window);

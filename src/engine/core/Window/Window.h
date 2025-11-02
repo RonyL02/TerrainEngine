@@ -29,6 +29,8 @@ namespace TE
         void SetWidth(int width);
         void SetHeight(int height);
 
+        virtual double GetTime() = 0;
+
         virtual void Destroy() = 0;
 
     protected:

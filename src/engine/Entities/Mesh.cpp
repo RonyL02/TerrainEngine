@@ -33,3 +33,18 @@ void TE::Mesh::Draw()
     glDrawElements(GL_TRIANGLES, m_IndicesSize, GL_UNSIGNED_INT, 0);
     m_Va.Unbind();
 }
+
+void TE::Mesh::Bind()
+{
+    m_Va.Bind();
+}
+
+void TE::Mesh::Unbind()
+{
+    m_Va.Unbind();
+}
+
+int TE::Mesh::GetIndicesCount()
+{
+    return m_IndicesSize;
+}
