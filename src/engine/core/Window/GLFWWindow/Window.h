@@ -20,9 +20,11 @@ namespace TE
         void SetShouldClose() override;
         bool ShouldClose() override;
 
-        void DisableCursor(bool disable);
+        void DisableCursor(bool disable) override;
 
         void Destroy() override;
+
+        double GetTime() override;
 
     private:
         void Create() override;

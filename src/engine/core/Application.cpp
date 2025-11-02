@@ -10,6 +10,9 @@
 #include "../Entities/Camera.h"
 #include "../Entities/Material.h"
 #include "../Entities/Mesh.h"
+#include "../Entities/Model.h"
+#include "../Graphics/Renderer/Renderer.h"
+#include "Time.h"
 
 TE::Application::Application(int width, int height, const char *title)
 {
@@ -22,16 +25,15 @@ void TE::Application::Run()
     // glEnable(GL_CULL_FACE);
     // glCullFace(GL_BACK);
     // glFrontFace(GL_CCW);
-    Material material = Material(
-        new Shader("res/shaders/vertex.glsl", "res/shaders/fragment.glsl"),
-                                 new Texture("res/textures/dabadi.png")
 
-    );
+    Shader shader = Shader("res/shaders/vertex.glsl", "res/shaders/fragment.glsl");
+    Texture texture = Texture("res/textures/dabadi.png");
+    Material material = Material(shader, texture);
 
     float vertices[] = {
-        -0.5f, -0.5f, 0, 1, 1, 1,    0, 0,
-        0.5f, -0.5f, 0,  1, 1, 1,    1, 0,
-        0, 0.5f, 0,      1, 1, 1,    1, 1};
+        -0.5f, -0.5f, 0, 0, 0, 0, 0, 0,
+        0.5f, -0.5f, 0, 0, 0, 0, 1, 0,
+        0, 0.5f, 0, 0, 0, 0, 1, 1};
     int numOfVertices = sizeof(vertices) / sizeof(float);
 
     unsigned int indices[] = {
@@ -41,74 +43,51 @@ void TE::Application::Run()
 
     Mesh mesh = Mesh(vertices, numOfVertices, indices, numOfIndices);
 
+    Model model = Model({0, 0, 0}, {0, 0, 0}, {1, 1, 1}, mesh, material);
+
+    Model model2 = Model({2, 0, 0}, {0, 0, 0}, {1, 1, 1}, mesh, material);
+
+    Model model3 = Model({1, 1, 0}, {0, 0, 0}, {1, 1, 1}, mesh, material);
+
     spdlog::info("APPLICATION::App is running...");
 
-    float deltaTime = 0.0f;
-    float lastFrame = 0.0f;
+    Ref<Camera> camera = MakeRef<Camera>(glm::vec3{0, 0, 3}, glm::vec3{0, 0, -1});
 
-    Camera camera = Camera({0, 0, 3}, {0, 0, -1});
+    Renderer::SetCamera(camera);
 
-    glm::mat4 projection = glm::mat4(1.0f);
-    projection = glm::perspective(glm::radians(45.0f), (float)m_Window->GetWidth() / (float)m_Window->GetHeight(), 0.1f, 100.0f);
     m_Window->DisableCursor(true);
+
     while (!m_Window->ShouldClose())
     {
-        glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
-        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-        float currentFrame = glfwGetTime();
-        deltaTime = currentFrame - lastFrame;
-        lastFrame = currentFrame;
-        float ms = 7.f * deltaTime;
-
-        if (Input::GetMouseOffset().first != 0 || Input::GetMouseOffset().second != 0)
-        {
-            camera.UpdateDirection(Input::GetMouseOffset().first * ms,
-                                   Input::GetMouseOffset().second * ms);
-        }
-
+        Time::UpdateDeltaTime();
         if (Input::IsKeyDown(KeyCode::KEY_ESCAPE))
         {
             m_Window->SetShouldClose();
         }
 
-        material.Bind();
-        material.GetShader()->SetMat4f("projection", projection);
-        glm::mat4 model = glm::mat4(1.0f); // make sure to initialize matrix to identity matrix first
-        model = glm::translate(model, {0, 0, 0});
-        float angle = 0;
-        model = glm::rotate(model, glm::radians(angle), glm::vec3(1.0f, 0.3f, 0.5f));
-        material.GetShader()->SetMat4f("model", model);
+        glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-        const float cameraSpeed = 1.75f * deltaTime;
+        const float cameraSpeed = 1.75f * Time::DeltaTime();
         if (Input::IsKeyDown(KeyCode::KEY_W))
-            camera.Move(cameraSpeed * camera.GetFront());
+            camera->Move(-cameraSpeed * glm::vec3(0,0,1));
         if (Input::IsKeyDown(KeyCode::KEY_S))
-            camera.Move(-cameraSpeed * camera.GetFront());
+            camera->Move(cameraSpeed * glm::vec3(0,0,1));
         if (Input::IsKeyDown(KeyCode::KEY_A))
-            camera.Move(-cameraSpeed * camera.GetRight());
+            camera->Move(-cameraSpeed * glm::vec3(1,0,0));
         if (Input::IsKeyDown(KeyCode::KEY_D))
-            camera.Move(cameraSpeed * camera.GetRight());
+            camera->Move(cameraSpeed * glm::vec3(1,0,0));
         if (Input::IsKeyDown(KeyCode::KEY_SPACE))
-            camera.Move(cameraSpeed * camera.GetUp());
+            camera->Move(cameraSpeed * glm::vec3(0,1,0));
         if (Input::IsKeyDown(KeyCode::KEY_LEFT_SHIFT))
-            camera.Move(-cameraSpeed * camera.GetUp());
-        // retrieve the matrix uniform locations
+            camera->Move(-cameraSpeed * glm::vec3(0,1,0));
 
-        material.GetShader()->SetMat4f("view", camera.GetViewMatrix());
+        Renderer::StartDraw();
 
-        // pass them to the shaders (3 different ways)
-        // note: currently we set the projection matrix each frame, but since the projection matrix rarely changes it's often best practice to set it outside the main loop only once.
+        Renderer::Draw(model);
+        Renderer::Draw(model2);
+        Renderer::Draw(model3);
 
-        // for (unsigned int i = 0; i < 10; i++)
-        {
-            // calculate the model matrix for each object and pass it to shader before drawing
-
-            mesh.Draw();
-        }
-
-        material.Unbind();
-        // glDrawArrays(GL_TRIANGLES, 0, 3);
-        // glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
         Input::SetMouseOffset(0, 0);
         m_Window->Update();
     }

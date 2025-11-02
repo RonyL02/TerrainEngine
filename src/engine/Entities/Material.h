@@ -7,17 +7,17 @@ namespace TE
     class Material
     {
     public:
-        Material();
-        Material(Shader* shader, Texture* texture);
+        Material(Shader &shader, Texture &texture);
+
         ~Material();
 
         void Bind();
         void Unbind();
 
-        Shader *GetShader();
+        Shader &GetShader();
 
     private:
-        Box<Texture> m_Texture;
-        Box<Shader> m_Shader;
+        Texture &m_Texture;
+        Shader &m_Shader;
     };
 }
