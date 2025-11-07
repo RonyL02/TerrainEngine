@@ -1,3 +1,6 @@
-#include "engine.h"
+#include <TerrainEngine.h>
 
-int main() { HelloEngine(); }
+int main() {
+  TerrainEngine::Application application = TerrainEngine::Application();
+  application.Init();
+}
