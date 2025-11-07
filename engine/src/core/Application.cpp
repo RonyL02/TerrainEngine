@@ -1,41 +1,48 @@
 #include "Application.h"
 #include <spdlog/spdlog.h>
 
-namespace TerrainEngine {
+namespace TerrainEngine
+{
 
-Application::Application() {
-  this->isRunning = false;
-  this->window = Window::Create(WindowProps{
-      .title = "yooo",
-      .width = 500,
-      .height = 200,
-  });
-}
-
-void Application::Init() {
-  spdlog::info("initializing application");
-  this->window.get()->Init();
-  this->Run();
-}
-
-void Application::Run() {
-  spdlog::info("running application");
-  this->isRunning = true;
-  while (this->IsRunning()) {
-    this->window.get()->SwapBuffers();
-    this->window.get()->PollEvents();
+  Application::Application()
+  {
+    this->isRunning = false;
+    this->window = Window::Create(WindowProps{
+        .title = "yooo",
+        .width = 500,
+        .height = 200,
+    });
   }
 
-  this->Shutdown();
-}
+  void Application::Init()
+  {
+    spdlog::info("initializing application");
+    this->window.get()->Init();
+    this->Run();
+  }
 
-void Application::Shutdown() {
-  spdlog::info("shutting down application");
-  this->window.get()->Close();
-}
+  void Application::Run()
+  {
+    spdlog::info("running application");
+    this->isRunning = true;
+    while (this->IsRunning())
+    {
+      this->window.get()->SwapBuffers();
+      this->window.get()->PollEvents();
+    }
 
-bool Application::IsRunning() {
-  return this->isRunning && !this->window.get()->ShouldClose();
-}
+    this->Shutdown();
+  }
+
+  void Application::Shutdown()
+  {
+    spdlog::info("shutting down application");
+    this->window.get()->Close();
+  }
+
+  bool Application::IsRunning()
+  {
+    return this->isRunning && !this->window.get()->ShouldClose();
+  }
 
 }

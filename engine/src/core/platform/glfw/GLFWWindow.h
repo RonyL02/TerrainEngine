@@ -2,21 +2,23 @@
 #include "../../Window.h"
 
 struct GLFWwindow;
-namespace TerrainEngine {
-class GLFWWindow : public Window {
-public:
-  GLFWWindow(WindowProps props) : Window(props), handle(nullptr) {}
-  ~GLFWWindow() = default;
+namespace TerrainEngine
+{
+  class GLFWWindow : public Window
+  {
+  public:
+    GLFWWindow(WindowProps props) : Window(props), handle(nullptr) {}
+    ~GLFWWindow() = default;
 
-  void Init() override;
-  void Close() override;
-  void PollEvents() override;
-  void SwapBuffers() override;
-  bool ShouldClose() override;
+    void Init() override;
+    void Close() override;
+    void PollEvents() override;
+    void SwapBuffers() override;
+    bool ShouldClose() override;
 
-private:
-  static void ErrorCallback(int error, const char *description);
-  static void TerminateGLFW();
-  GLFWwindow *handle;
-};
+  private:
+    static void ErrorCallback(int error, const char *description);
+    static void TerminateGLFW();
+    GLFWwindow *handle;
+  };
 }

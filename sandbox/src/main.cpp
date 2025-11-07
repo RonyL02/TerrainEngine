@@ -1,6 +1,7 @@
 #include <TerrainEngine.h>
 
-int main() {
+int main()
+{
   TerrainEngine::Application application = TerrainEngine::Application();
   application.Init();
 }
