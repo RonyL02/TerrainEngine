@@ -1,2 +1,4 @@
 #pragma once
-#include "Core/Application.h"
+#include <print>
+
+void HelloEngine() { std::print("yooo"); }

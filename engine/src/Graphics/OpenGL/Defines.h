@@ -1,4 +1,0 @@
-#pragma once
-
-#define TE_OPENGL_VERSION_MAJOR 4
-#define TE_OPENGL_VERSION_MINOR 6
