@@ -1,7 +1,7 @@
 #pragma once
 #include "../Graphics/OpenGL/Utils.h"
 #include <optional>
-#include "../Utils.h"
+#include "../utils.h"
 namespace TE
 {
     class Material

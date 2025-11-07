@@ -1,6 +1,6 @@
 #pragma once
 #include <memory>
-#include "../../Utils.h"
+#include "../../utils.h"
 namespace TE
 {
     class Window

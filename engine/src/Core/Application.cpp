@@ -22,8 +22,8 @@ void TE::Application::Run()
     // glEnable(GL_CULL_FACE);
     // glCullFace(GL_BACK);
     // glFrontFace(GL_CCW);
-    Material material = Material(new Shader("res/shaders/vertex.glsl", "res/shaders/fragment.glsl"),
-                                 new Texture("res/textures/dabadi.png")
+    Material material = Material(new Shader("engine/res/shaders/vertex.glsl", "engine/res/shaders/fragment.glsl"),
+                                 new Texture("engine/res/textures/dabadi.png")
 
     );
 
