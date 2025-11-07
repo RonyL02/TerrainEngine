@@ -10,7 +10,7 @@ CPMAddPackage(
     libglew_static
     GIT_REPOSITORY https://github.com/Perlmint/glew-cmake.git
     GIT_TAG        glew-cmake-2.2.0)
-CPMAddPackage("gh:gabime/spdlog@1.14.1")
+CPMAddPackage("gh:gabime/spdlog@1.16.0")
 CPMAddPackage("gh:g-truc/glm#1.0.1")
 
 CPMAddPackage(
