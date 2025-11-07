@@ -3,9 +3,9 @@
     "configurePresets": [
         {
             "name": "default",
-            "binaryDir": "bin",
             "cacheVariables": {
-                "exe_name":"eee",
+                "lib_name": "TerrainEngine",
+                "exe_name":"Sandbox",
                 "CMAKE_C_COMPILER": "clang",
                 "CMAKE_CXX_COMPILER": "clang++",
                 "CMAKE_CXX_STANDARD": "23",

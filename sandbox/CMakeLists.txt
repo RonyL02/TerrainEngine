@@ -1,9 +1,11 @@
 project(TerrainEngine-sandbox)
 
-add_executable(${exe_name} src/main.cpp)
+file(GLOB_RECURSE SANDBOX_SOURCES src/*.cpp)
 
-target_link_libraries(${exe_name} PRIVATE TerrainEngine)
+add_executable(${exe_name} ${SANDBOX_SOURCES})
+
+target_link_libraries(${exe_name} PUBLIC ${lib_name})
 
 set_target_properties(${exe_name} PROPERTIES
-    RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}
+    RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/sandbox
 )
