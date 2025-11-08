@@ -1,6 +1,7 @@
 #pragma once
 #include "../graphics/Renderer.h"
 #include "Window.h"
+#include "Layer.h"
 #include <memory>
 namespace TerrainEngine
 {
@@ -12,6 +13,7 @@ namespace TerrainEngine
     Application();
 
     void Init();
+    void SetLayer(std::unique_ptr<Layer> layer);
     static Application &Get();
     inline Window &GetWindow() { return *this->window; }
 
@@ -23,6 +25,7 @@ namespace TerrainEngine
     std::unique_ptr<Window> window;
     std::unique_ptr<Renderer> renderer;
     static std::unique_ptr<Application> instance;
+    std::unique_ptr<Layer> layer;
   };
 
 }

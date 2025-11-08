@@ -21,7 +21,13 @@ namespace TerrainEngine
     spdlog::info("initializing application");
     this->window->Init();
     this->renderer->Init();
+    this->layer->Init();
     this->Run();
+  }
+
+  void Application::SetLayer(std::unique_ptr<Layer> layer)
+  {
+    this->layer = std::move(layer);
   }
 
   Application &Application::Get()
@@ -40,8 +46,11 @@ namespace TerrainEngine
     this->isRunning = true;
     while (this->IsRunning())
     {
-      glClearColor(0.9f, 0.9f, 0.9f, 1.0f);
+      glClearColor(0.7f, 0.5f, 0.5f, 1.0f);
       glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+      this->layer->Update();
+      this->layer->Render();
 
       this->window->PollEvents();
       this->window->SwapBuffers();
@@ -53,6 +62,7 @@ namespace TerrainEngine
   void Application::Shutdown()
   {
     spdlog::info("shutting down application");
+    this->layer->Close();
     this->renderer->Shutdown();
     this->window->Close();
   }
