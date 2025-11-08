@@ -1,6 +1,6 @@
 #include "Application.h"
 #include <spdlog/spdlog.h>
-
+#include <GL/gl3w.h>
 namespace TerrainEngine
 {
   std::unique_ptr<Application> Application::instance;
@@ -40,6 +40,9 @@ namespace TerrainEngine
     this->isRunning = true;
     while (this->IsRunning())
     {
+      glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
+      glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
       this->window->SwapBuffers();
       this->window->PollEvents();
     }
@@ -50,6 +53,7 @@ namespace TerrainEngine
   void Application::Shutdown()
   {
     spdlog::info("shutting down application");
+    this->renderer->Shutdown();
     this->window->Close();
   }
 

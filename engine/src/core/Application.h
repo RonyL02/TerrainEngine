@@ -13,6 +13,7 @@ namespace TerrainEngine
 
     void Init();
     static Application &Get();
+    inline Window &GetWindow() { return *this->window; }
 
   private:
     void Run();

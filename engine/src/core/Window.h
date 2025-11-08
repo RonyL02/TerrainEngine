@@ -26,8 +26,12 @@ namespace TerrainEngine
 
     static std::unique_ptr<Window> Create(WindowProps windowProps);
 
+    WindowProps GetWindowProps() const
+    {
+      return this->windowProps;
+    }
+
   protected:
     WindowProps windowProps;
   };
-
 }

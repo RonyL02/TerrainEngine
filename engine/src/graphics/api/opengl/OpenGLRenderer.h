@@ -11,6 +11,7 @@ namespace TerrainEngine
         ~OpenGLRenderer() = default;
 
         void Init() override;
+        void Shutdown() override;
     };
 
 }
