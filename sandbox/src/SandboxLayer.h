@@ -8,7 +8,9 @@ public:
     ~SandboxLayer();
 
     void Init() override;
-    void Render() override;
     void Update() override;
     void Close() override;
+
+private:
+    TerrainEngine::Drawable a;
 };

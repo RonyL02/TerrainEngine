@@ -1,5 +1,7 @@
 #pragma once
 #include <memory>
+#include "Drawable.h"
+#include "camera/Camera.h"
 namespace TerrainEngine
 {
 
@@ -10,7 +12,9 @@ namespace TerrainEngine
         virtual ~Renderer() = default;
 
         virtual void Init() = 0;
+        virtual void StartDraw(const Camera& camera) = 0;
         virtual void Shutdown() = 0;
+        virtual void Draw(const Drawable &drawable) = 0;
         static std::unique_ptr<Renderer> Create();
     };
 

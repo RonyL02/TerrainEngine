@@ -11,8 +11,8 @@ namespace TerrainEngine
     this->renderer = Renderer::Create();
     this->window = Window::Create(WindowProps{
         .title = "yooo",
-        .width = 500,
-        .height = 200,
+        .width = 1000,
+        .height = 800,
     });
   }
 

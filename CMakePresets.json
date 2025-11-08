@@ -3,9 +3,11 @@
     "configurePresets": [
         {
             "name": "default",
+            "generator": "Unix Makefiles",
+            "binaryDir": "${sourceDir}/build",
             "cacheVariables": {
                 "lib_name": "TerrainEngine",
-                "exe_name":"Sandbox",
+                "exe_name": "Sandbox",
                 "CMAKE_C_COMPILER": "clang",
                 "CMAKE_CXX_COMPILER": "clang++",
                 "CMAKE_CXX_STANDARD": "23",

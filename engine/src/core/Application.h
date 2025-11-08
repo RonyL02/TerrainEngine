@@ -2,6 +2,7 @@
 #include "../graphics/Renderer.h"
 #include "Window.h"
 #include "Layer.h"
+
 #include <memory>
 namespace TerrainEngine
 {
@@ -16,6 +17,7 @@ namespace TerrainEngine
     void SetLayer(std::unique_ptr<Layer> layer);
     static Application &Get();
     inline Window &GetWindow() { return *this->window; }
+    inline Renderer &GetRenderer() { return *this->renderer; }
 
   private:
     void Run();

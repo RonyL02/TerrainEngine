@@ -1,6 +1,7 @@
 #pragma once
 #include "../../Renderer.h"
-
+#include "../../Drawable.h"
+#include "../../camera/Camera.h"
 namespace TerrainEngine
 {
 
@@ -12,6 +13,12 @@ namespace TerrainEngine
 
         void Init() override;
         void Shutdown() override;
+        void Draw(const Drawable &drawable) override;
+        void StartDraw(const Camera &camera) override;
+
+    private:
+        glm::mat4 view;
+        glm::mat4 projection;
     };
 
 }

@@ -2,25 +2,49 @@
 #include <GL/gl3w.h>
 #include <spdlog/spdlog.h>
 #include "../../../core/Application.h"
-void TerrainEngine::OpenGLRenderer::Init()
+
+namespace TerrainEngine
 {
-    if (gl3wInit())
+
+    void OpenGLRenderer::Init()
     {
-        spdlog::error("failed to init gl3w");
-        return;
+        if (gl3wInit())
+        {
+            spdlog::error("failed to init gl3w");
+            return;
+        }
+
+        spdlog::info("successfully initialized gl3w");
+        spdlog::info("opengl version {}", reinterpret_cast<const char *>(glGetString(GL_VERSION)));
+
+        glViewport(0, 0, Application::Get().GetWindow().GetWindowProps().width, Application::Get().GetWindow().GetWindowProps().height);
     }
 
-    spdlog::info("successfully initialized gl3w");
-    spdlog::info("opengl version {}", reinterpret_cast<const char *>(glGetString(GL_VERSION)));
-
-    glViewport(0, 0, Application::Get().GetWindow().GetWindowProps().width, Application::Get().GetWindow().GetWindowProps().height);
-}
-
-void TerrainEngine::OpenGLRenderer::Shutdown()
-{
-    GLenum error = glGetError();
-    if (error != GL_NO_ERROR)
+    void OpenGLRenderer::Shutdown()
     {
-        spdlog::error("OpenGL Error: {}", error);
+        GLenum error = glGetError();
+        if (error != GL_NO_ERROR)
+        {
+            spdlog::error("OpenGL Error: {}", error);
+        }
+    }
+
+    void OpenGLRenderer::Draw(const Drawable &drawable)
+    {
+        drawable.Material->Shader->Bind();
+        drawable.Material->Shader->SetMat4f("view", this->view);
+        drawable.Material->Shader->SetMat4f("model", drawable.Transform);
+        drawable.Material->Shader->SetMat4f("projection", this->projection);
+        if (drawable.Material->Diffuse)
+            drawable.Material->Diffuse->Bind();
+
+        glBindVertexArray(drawable.Mesh->GetVAO());
+        glDrawElements(GL_TRIANGLES, drawable.Mesh->GetIndexCount(), GL_UNSIGNED_INT, nullptr);
+    }
+
+    void OpenGLRenderer::StartDraw(const Camera &camera)
+    {
+        this->view = camera.GetViewMatrix();
+        this->projection = camera.GetProjectionMatrix();
     }
 }
