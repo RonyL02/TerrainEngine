@@ -8,9 +8,11 @@ namespace TerrainEngine
   class Application
   {
   public:
-    Application();
     ~Application() = default;
+    Application();
+
     void Init();
+    static Application &Get();
 
   private:
     void Run();
@@ -19,6 +21,7 @@ namespace TerrainEngine
     bool isRunning;
     std::unique_ptr<Window> window;
     std::unique_ptr<Renderer> renderer;
+    static std::unique_ptr<Application> instance;
   };
 
 }

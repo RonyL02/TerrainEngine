@@ -3,6 +3,7 @@
 
 namespace TerrainEngine
 {
+  std::unique_ptr<Application> Application::instance;
 
   Application::Application()
   {
@@ -18,9 +19,19 @@ namespace TerrainEngine
   void Application::Init()
   {
     spdlog::info("initializing application");
-    this->window.get()->Init();
-    this->renderer.get()->Init();
+    this->window->Init();
+    this->renderer->Init();
     this->Run();
+  }
+
+  Application &Application::Get()
+  {
+    if (!Application::instance)
+    {
+      Application::instance = std::make_unique<Application>();
+    }
+
+    return *Application::instance;
   }
 
   void Application::Run()
@@ -29,8 +40,8 @@ namespace TerrainEngine
     this->isRunning = true;
     while (this->IsRunning())
     {
-      this->window.get()->SwapBuffers();
-      this->window.get()->PollEvents();
+      this->window->SwapBuffers();
+      this->window->PollEvents();
     }
 
     this->Shutdown();
@@ -39,12 +50,12 @@ namespace TerrainEngine
   void Application::Shutdown()
   {
     spdlog::info("shutting down application");
-    this->window.get()->Close();
+    this->window->Close();
   }
 
   bool Application::IsRunning()
   {
-    return this->isRunning && !this->window.get()->ShouldClose();
+    return this->isRunning && !this->window->ShouldClose();
   }
 
 }

@@ -10,6 +10,5 @@ void TerrainEngine::OpenGLRenderer::Init()
     }
 
     spdlog::info("successfully initialized gl3w");
-
     spdlog::info("opengl version {}", reinterpret_cast<const char *>(glGetString(GL_VERSION)));
 }

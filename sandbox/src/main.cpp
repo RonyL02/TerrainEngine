@@ -2,6 +2,6 @@
 
 int main()
 {
-  TerrainEngine::Application application = TerrainEngine::Application();
+  TerrainEngine::Application &application = TerrainEngine::Application::Get();
   application.Init();
 }
