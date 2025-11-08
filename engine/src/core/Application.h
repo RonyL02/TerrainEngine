@@ -1,4 +1,5 @@
 #pragma once
+#include "../graphics/Renderer.h"
 #include "Window.h"
 #include <memory>
 namespace TerrainEngine
@@ -17,6 +18,7 @@ namespace TerrainEngine
     bool IsRunning();
     bool isRunning;
     std::unique_ptr<Window> window;
+    std::unique_ptr<Renderer> renderer;
   };
 
 }

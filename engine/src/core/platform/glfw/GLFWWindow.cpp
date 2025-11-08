@@ -19,7 +19,7 @@ namespace TerrainEngine
     auto [title, width, height] = this->windowProps;
     this->handle =
         glfwCreateWindow(width, height, title.c_str(), nullptr, nullptr);
-
+        
     if (!this->handle)
     {
       spdlog::error("failed to init glfw window");

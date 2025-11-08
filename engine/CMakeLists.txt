@@ -1,11 +1,7 @@
 project(TerrainEngine-lib)
 
 CPMAddPackage("gh:glfw/glfw#3.4")
-option(glew-cmake_BUILD_SHARED NO)
-CPMAddPackage(
-    libglew_static
-    GIT_REPOSITORY https://github.com/Perlmint/glew-cmake.git
-    GIT_TAG        glew-cmake-2.2.0)
+CPMAddPackage("gh:skaslev/gl3w#master")
 CPMAddPackage("gh:gabime/spdlog@1.16.0")
 CPMAddPackage("gh:g-truc/glm#1.0.1")
 CPMAddPackage(
@@ -22,7 +18,7 @@ add_library(${lib_name} STATIC ${ENGINE_SOURCES})
 target_link_libraries(${lib_name} PUBLIC
     glfw
     opengl32
-    libglew_static
+    gl3w
     spdlog
     glm::glm
 )

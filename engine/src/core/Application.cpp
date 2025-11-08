@@ -7,6 +7,7 @@ namespace TerrainEngine
   Application::Application()
   {
     this->isRunning = false;
+    this->renderer = Renderer::Create();
     this->window = Window::Create(WindowProps{
         .title = "yooo",
         .width = 500,
@@ -18,6 +19,7 @@ namespace TerrainEngine
   {
     spdlog::info("initializing application");
     this->window.get()->Init();
+    this->renderer.get()->Init();
     this->Run();
   }
 
