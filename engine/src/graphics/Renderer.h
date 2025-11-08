@@ -12,9 +12,9 @@ namespace TerrainEngine
         virtual ~Renderer() = default;
 
         virtual void Init() = 0;
-        virtual void StartDraw(const Camera& camera) = 0;
+        virtual void StartDraw(const Camera &camera) = 0;
         virtual void Shutdown() = 0;
-        virtual void Draw(const Drawable &drawable) = 0;
+        virtual void Draw(Drawable &drawable) = 0;
         static std::unique_ptr<Renderer> Create();
     };
 

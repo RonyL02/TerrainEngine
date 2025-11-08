@@ -29,11 +29,11 @@ namespace TerrainEngine
         }
     }
 
-    void OpenGLRenderer::Draw(const Drawable &drawable)
+    void OpenGLRenderer::Draw(Drawable &drawable)
     {
         drawable.Material->Shader->Bind();
         drawable.Material->Shader->SetMat4f("view", this->view);
-        drawable.Material->Shader->SetMat4f("model", drawable.Transform);
+        drawable.Material->Shader->SetMat4f("model", drawable.GetModelMatrix());
         drawable.Material->Shader->SetMat4f("projection", this->projection);
         if (drawable.Material->Diffuse)
             drawable.Material->Diffuse->Bind();

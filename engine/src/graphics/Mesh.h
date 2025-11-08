@@ -23,6 +23,8 @@ namespace TerrainEngine
         unsigned int GetVAO() const { return this->vao; }
         unsigned int GetIndexCount() const { return this->indexCount; }
 
+        static Mesh Cube();
+
     private:
         unsigned int vao = 0, vbo = 0, ebo = 0;
         unsigned int indexCount = 0;

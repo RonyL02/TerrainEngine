@@ -13,7 +13,7 @@ namespace TerrainEngine
 
         void Init() override;
         void Shutdown() override;
-        void Draw(const Drawable &drawable) override;
+        void Draw(Drawable &drawable) override;
         void StartDraw(const Camera &camera) override;
 
     private:

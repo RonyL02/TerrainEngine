@@ -8,8 +8,12 @@ namespace TerrainEngine
 {
     struct Drawable
     {
-        glm::mat4 Transform;
+        glm::vec3 Position;
+        glm::vec3 Rotation;
+        glm::vec3 Scale;
         std::shared_ptr<Mesh> Mesh;
         std::shared_ptr<Material> Material;
+
+        glm::mat4 GetModelMatrix();
     };
 }
