@@ -23,7 +23,7 @@ namespace TerrainEngine
     virtual bool ShouldClose() = 0;
     virtual void PollEvents() = 0;
     virtual void SwapBuffers() = 0;
-
+    virtual float GetTime() = 0;
     static std::unique_ptr<Window> Create(WindowProps windowProps);
 
     WindowProps GetWindowProps() const

@@ -2,6 +2,7 @@
 #include <spdlog/spdlog.h>
 #include <GL/gl3w.h>
 #include "Input.h"
+#include "Time.h"
 namespace TerrainEngine
 {
   std::unique_ptr<Application> Application::instance;
@@ -47,6 +48,7 @@ namespace TerrainEngine
     this->isRunning = true;
     while (this->IsRunning())
     {
+      Time::UpdateDeltaTime(this->GetWindow().GetTime());
       glClearColor(0.7f, 0.5f, 0.5f, 1.0f);
       glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 

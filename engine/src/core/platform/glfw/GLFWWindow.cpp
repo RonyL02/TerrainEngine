@@ -30,8 +30,8 @@ namespace TerrainEngine
     glfwSetMouseButtonCallback(this->handle, GLFWCallback::MouseButton);
     glfwSetCursorPosCallback(this->handle, GLFWCallback::MousePosition);
     glfwSetFramebufferSizeCallback(this->handle, GLFWCallback::FramebufferSize);
-
     glfwMakeContextCurrent(this->handle);
+    glfwSwapInterval(1);
     spdlog::info("successfully created glfw window");
   }
 
@@ -46,6 +46,11 @@ namespace TerrainEngine
   void GLFWWindow::SwapBuffers() { glfwSwapBuffers(this->handle); }
 
   bool GLFWWindow::ShouldClose() { return glfwWindowShouldClose(this->handle); }
+
+  float GLFWWindow::GetTime()
+  {
+    return glfwGetTime();
+  }
 
   void GLFWWindow::ErrorCallback(int error, const char *description)
   {

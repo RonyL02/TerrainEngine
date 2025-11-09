@@ -43,6 +43,8 @@ void SandboxLayer::Update()
     {
         spdlog::info("input working!!!");
     }
+
+    scene.cameraController.Move();
 }
 
 void SandboxLayer::Close()

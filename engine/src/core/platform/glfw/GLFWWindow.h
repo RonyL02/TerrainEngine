@@ -15,6 +15,7 @@ namespace TerrainEngine
     void PollEvents() override;
     void SwapBuffers() override;
     bool ShouldClose() override;
+    float GetTime() override;
 
   private:
     static void ErrorCallback(int error, const char *description);

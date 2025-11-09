@@ -13,8 +13,9 @@ namespace TerrainEngine
         void Render();
         void AddObject(const Drawable &object);
 
-    private:
         CameraController cameraController;
+
+    private:
         std::vector<Drawable> objects;
     };
 }
