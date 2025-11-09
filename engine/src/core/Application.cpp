@@ -50,11 +50,11 @@ namespace TerrainEngine
       glClearColor(0.7f, 0.5f, 0.5f, 1.0f);
       glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-      this->layer->Update();
       this->layer->Render();
+      this->window->SwapBuffers();
 
       this->window->PollEvents();
-      this->window->SwapBuffers();
+      this->layer->Update();
       Input::Update();
     }
 

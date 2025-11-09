@@ -39,7 +39,7 @@ void SandboxLayer::Init()
 
 void SandboxLayer::Update()
 {
-    if (TerrainEngine::Input::IsKeyDown(TerrainEngine::KeyCodes::KEY_A))
+    if (TerrainEngine::Input::IsKeyPressed(TerrainEngine::KeyCodes::KEY_A))
     {
         spdlog::info("input working!!!");
     }
