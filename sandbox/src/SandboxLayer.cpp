@@ -15,9 +15,9 @@ void SandboxLayer::Init()
 
     auto cubeMesh = std::make_shared<TerrainEngine::Mesh>(TerrainEngine::Mesh::Cube());
     auto cubeMaterial = std::make_shared<TerrainEngine::Material>();
-    cubeMaterial->Shader = std::make_shared<TerrainEngine::Shader>("engine/res/shaders/vertex.glsl", "engine/res/shaders/fragment.glsl");
+    cubeMaterial->Shader = std::make_shared<TerrainEngine::Shader>(RESOURCE_PATH + "/shaders/vertex.glsl", RESOURCE_PATH + "/shaders/fragment.glsl");
     cubeMaterial->Color = glm::vec4(1.0f, 0.5f, 0.3f, 1.0f);
-    cubeMaterial->Diffuse = std::make_shared<TerrainEngine::Texture>("engine/res/textures/dabadi.png");
+    cubeMaterial->Diffuse = std::make_shared<TerrainEngine::Texture>(RESOURCE_PATH + "/textures/dabadi.png");
 
     TerrainEngine::Drawable cube = TerrainEngine::Drawable{
         .Mesh = cubeMesh,
@@ -35,11 +35,14 @@ void SandboxLayer::Init()
 
     this->scene.AddObject(cube);
     this->scene.AddObject(cube2);
-
 }
 
 void SandboxLayer::Update()
 {
+    if (TerrainEngine::Input::IsKeyDown(TerrainEngine::KeyCodes::KEY_A))
+    {
+        spdlog::info("input working!!!");
+    }
 }
 
 void SandboxLayer::Close()

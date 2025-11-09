@@ -17,7 +17,7 @@ namespace TerrainEngine
         spdlog::info("successfully initialized gl3w");
         spdlog::info("opengl version {}", reinterpret_cast<const char *>(glGetString(GL_VERSION)));
 
-        glViewport(0, 0, Application::Get().GetWindow().GetWindowProps().width, Application::Get().GetWindow().GetWindowProps().height);
+        this->UpdateViewPort(Application::Get().GetWindow().GetWindowProps().width, Application::Get().GetWindow().GetWindowProps().height);
     }
 
     void OpenGLRenderer::Shutdown()
@@ -46,5 +46,9 @@ namespace TerrainEngine
     {
         this->view = camera.GetViewMatrix();
         this->projection = camera.GetProjectionMatrix();
+    }
+    void OpenGLRenderer::UpdateViewPort(int width, int height)
+    {
+        glViewport(0, 0, width, height);
     }
 }

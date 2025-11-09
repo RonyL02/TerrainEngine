@@ -1,8 +1,8 @@
 #include "GLFWWindow.h"
+#include "GLFWCallback.h"
 #include <GLFW/glfw3.h>
 #include <cstdlib>
 #include <spdlog/spdlog.h>
-
 namespace TerrainEngine
 {
 
@@ -14,17 +14,22 @@ namespace TerrainEngine
       return;
     }
 
-    glfwSetErrorCallback(GLFWWindow::ErrorCallback);
     std::atexit(GLFWWindow::TerminateGLFW);
     auto [title, width, height] = this->windowProps;
     this->handle =
         glfwCreateWindow(width, height, title.c_str(), nullptr, nullptr);
-        
+
     if (!this->handle)
     {
       spdlog::error("failed to init glfw window");
       return;
     }
+
+    glfwSetErrorCallback(GLFWWindow::ErrorCallback);
+    glfwSetKeyCallback(this->handle, GLFWCallback::Key);
+    glfwSetMouseButtonCallback(this->handle, GLFWCallback::MouseButton);
+    glfwSetCursorPosCallback(this->handle, GLFWCallback::MousePosition);
+    glfwSetFramebufferSizeCallback(this->handle, GLFWCallback::FramebufferSize);
 
     glfwMakeContextCurrent(this->handle);
     spdlog::info("successfully created glfw window");

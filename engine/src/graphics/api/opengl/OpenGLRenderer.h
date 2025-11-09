@@ -15,6 +15,7 @@ namespace TerrainEngine
         void Shutdown() override;
         void Draw(Drawable &drawable) override;
         void StartDraw(const Camera &camera) override;
+        void UpdateViewPort(int width, int height) override;
 
     private:
         glm::mat4 view;

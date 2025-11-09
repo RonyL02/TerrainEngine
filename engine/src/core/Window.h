@@ -31,6 +31,16 @@ namespace TerrainEngine
       return this->windowProps;
     }
 
+    void SetWidth(int width)
+    {
+      this->windowProps.width = width;
+    }
+
+    void SetHeight(int height)
+    {
+      this->windowProps.height = height;
+    }
+
   protected:
     WindowProps windowProps;
   };

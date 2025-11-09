@@ -1,6 +1,7 @@
 #include "Application.h"
 #include <spdlog/spdlog.h>
 #include <GL/gl3w.h>
+#include "Input.h"
 namespace TerrainEngine
 {
   std::unique_ptr<Application> Application::instance;
@@ -54,6 +55,7 @@ namespace TerrainEngine
 
       this->window->PollEvents();
       this->window->SwapBuffers();
+      Input::Update();
     }
 
     this->Shutdown();

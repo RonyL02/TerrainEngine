@@ -10,7 +10,7 @@ namespace TerrainEngine
     public:
         Renderer() = default;
         virtual ~Renderer() = default;
-
+        virtual void UpdateViewPort(int width, int height) = 0;
         virtual void Init() = 0;
         virtual void StartDraw(const Camera &camera) = 0;
         virtual void Shutdown() = 0;

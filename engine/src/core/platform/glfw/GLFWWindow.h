@@ -18,6 +18,7 @@ namespace TerrainEngine
 
   private:
     static void ErrorCallback(int error, const char *description);
+    static void FramebufferSizeCallback(GLFWwindow *window, int width, int height);
     static void TerminateGLFW();
     GLFWwindow *handle;
   };
