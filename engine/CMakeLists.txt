@@ -3,7 +3,7 @@ project(TerrainEngine-lib)
 CPMAddPackage("gh:glfw/glfw#3.4")
 CPMAddPackage("gh:skaslev/gl3w#master")
 CPMAddPackage("gh:gabime/spdlog@1.16.0")
-CPMAddPackage("gh:g-truc/glm#1.0.1")
+CPMAddPackage("gh:g-truc/glm#1.0.2")
 CPMAddPackage(
   NAME stb
   GIT_REPOSITORY https://github.com/nothings/stb.git

@@ -15,6 +15,7 @@ namespace TerrainEngine
 
     void Init();
     void SetLayer(std::unique_ptr<Layer> layer);
+    void Exit();
     static Application &Get();
     inline Window &GetWindow() { return *this->window; }
     inline Renderer &GetRenderer() { return *this->renderer; }

@@ -24,6 +24,7 @@ namespace TerrainEngine
     virtual void PollEvents() = 0;
     virtual void SwapBuffers() = 0;
     virtual float GetTime() = 0;
+    virtual void DisableCursor(bool disable) = 0;
     static std::unique_ptr<Window> Create(WindowProps windowProps);
 
     WindowProps GetWindowProps() const

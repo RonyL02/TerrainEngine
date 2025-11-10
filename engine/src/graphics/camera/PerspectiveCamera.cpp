@@ -20,9 +20,10 @@ namespace TerrainEngine
         this->RecalculateView();
     }
 
-    void PerspectiveCamera::SetRotation(const glm::vec3 &rotationEuler)
+    void PerspectiveCamera::SetRotation(const glm::vec3 &forward, const glm::vec3 &up)
     {
-        this->rotation = rotationEuler;
+        this->forward = forward;
+        this->up = up;
         this->RecalculateView();
     }
     void PerspectiveCamera::RecalculateProjection()
@@ -31,7 +32,6 @@ namespace TerrainEngine
     }
     void PerspectiveCamera::RecalculateView()
     {
-        glm::mat4 transform = glm::translate(glm::mat4(1.0f), this->position) * glm::yawPitchRoll(this->rotation.y, this->rotation.x, this->rotation.z);
-        this->viewMatrix = glm::inverse(transform);
+        this->viewMatrix = glm::lookAt(this->position, this->position + this->forward, this->up);
     }
 }

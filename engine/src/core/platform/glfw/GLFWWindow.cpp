@@ -52,6 +52,11 @@ namespace TerrainEngine
     return glfwGetTime();
   }
 
+  void GLFWWindow::DisableCursor(bool disable)
+  {
+    glfwSetInputMode(this->handle, GLFW_CURSOR, disable ? GLFW_CURSOR_DISABLED : GLFW_CURSOR_NORMAL);
+  }
+
   void GLFWWindow::ErrorCallback(int error, const char *description)
   {
     spdlog::error("glfw error ({}): {}", error, description);

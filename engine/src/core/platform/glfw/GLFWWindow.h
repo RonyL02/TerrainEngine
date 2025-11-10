@@ -16,6 +16,7 @@ namespace TerrainEngine
     void SwapBuffers() override;
     bool ShouldClose() override;
     float GetTime() override;
+    void DisableCursor(bool disable) override;
 
   private:
     static void ErrorCallback(int error, const char *description);

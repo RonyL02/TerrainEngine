@@ -14,7 +14,7 @@ namespace TerrainEngine
     this->window = Window::Create(WindowProps{
         .title = "yooo",
         .width = 1000,
-        .height = 800,
+        .height = 600,
     });
   }
 
@@ -30,6 +30,11 @@ namespace TerrainEngine
   void Application::SetLayer(std::unique_ptr<Layer> layer)
   {
     this->layer = std::move(layer);
+  }
+
+  void Application::Exit()
+  {
+    this->isRunning = false;
   }
 
   Application &Application::Get()
@@ -58,6 +63,7 @@ namespace TerrainEngine
       this->window->PollEvents();
       this->layer->Update();
       Input::Update();
+      Input::SetMouseOffset(0, 0);
     }
 
     this->Shutdown();

@@ -22,16 +22,16 @@ void SandboxLayer::Init()
     TerrainEngine::Drawable cube = TerrainEngine::Drawable{
         .Mesh = cubeMesh,
         .Material = cubeMaterial,
-        .Position = {0, 0, -3},
+        .Position = {0, 0, 3},
         .Rotation = {1, 1, 1},
         .Scale = {1, 1, 1}};
 
     TerrainEngine::Drawable cube2 = TerrainEngine::Drawable{
         .Mesh = cubeMesh,
         .Material = cubeMaterial,
-        .Position = {2, 0, -3},
+        .Position = {0, 0, -3},
         .Rotation = {1, 1, 1},
-        .Scale = {1, 1, 1}};
+        .Scale = {5, 5, 5}};
 
     this->scene.AddObject(cube);
     this->scene.AddObject(cube2);
@@ -39,12 +39,21 @@ void SandboxLayer::Init()
 
 void SandboxLayer::Update()
 {
-    if (TerrainEngine::Input::IsKeyPressed(TerrainEngine::KeyCodes::KEY_A))
+    if (TerrainEngine::Input::IsKeyPressed(TerrainEngine::KeyCodes::KEY_C))
     {
-        spdlog::info("input working!!!");
+        TerrainEngine::Application::Get().GetWindow().DisableCursor(true);
+    }
+    if (TerrainEngine::Input::IsKeyPressed(TerrainEngine::KeyCodes::KEY_V))
+    {
+        TerrainEngine::Application::Get().GetWindow().DisableCursor(false);
+    }
+    if (TerrainEngine::Input::IsKeyPressed(TerrainEngine::KeyCodes::KEY_ESCAPE))
+    {
+        TerrainEngine::Application::Get().Exit();
     }
 
     scene.cameraController.Move();
+    scene.cameraController.UpdateDirection();
 }
 
 void SandboxLayer::Close()

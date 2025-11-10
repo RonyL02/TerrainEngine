@@ -18,6 +18,11 @@ namespace TerrainEngine
         spdlog::info("opengl version {}", reinterpret_cast<const char *>(glGetString(GL_VERSION)));
 
         this->UpdateViewPort(Application::Get().GetWindow().GetWindowProps().width, Application::Get().GetWindow().GetWindowProps().height);
+
+        glEnable(GL_DEPTH_TEST);
+        // glEnable(GL_CULL_FACE);
+        glCullFace(GL_BACK);
+        glFrontFace(GL_CCW);
     }
 
     void OpenGLRenderer::Shutdown()
