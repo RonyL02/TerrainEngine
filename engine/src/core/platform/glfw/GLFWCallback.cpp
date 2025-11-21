@@ -2,6 +2,7 @@
 #include "../../Application.h"
 #include "../../Input.h"
 #include <GLFW/glfw3.h>
+#include <spdlog/spdlog.h>
 namespace TerrainEngine
 {
     void GLFWCallback::Key(GLFWwindow *window, int key, int scancode, int action, int mods)
@@ -39,5 +40,10 @@ namespace TerrainEngine
 
         Input::SetCurrentMousePosition(xpos, ypos);
         Input::SetMouseOffset(xoffset, yoffset);
+    }
+
+    void GLFWCallback::ErrorCallback(int error, const char *description)
+    {
+        spdlog::error("glfw error ({}): {}", error, description);
     }
 }
