@@ -3,7 +3,6 @@
         {
             "name": "Win32",
             "includePath": [
-                "${workspaceFolder}/build/_deps/glew-cmake-src/include",
                 "${workspaceFolder}/build/_deps/glfw-src/include",
                 "${workspaceFolder}/build/_deps/spdlog-src/include",
                 "${workspaceFolder}/build/_deps/stb-src",
