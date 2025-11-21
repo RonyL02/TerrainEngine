@@ -1,0 +1,19 @@
+#pragma once
+#include "Scene.h"
+namespace TerrainEngine
+{
+    class Layer
+    {
+    public:
+        Layer() = default;
+        virtual ~Layer() = default;
+        virtual void Init() = 0;
+        virtual void Update() = 0;
+        void Render();
+        virtual void Close() = 0;
+
+    protected:
+        Scene scene;
+    };
+
+}
