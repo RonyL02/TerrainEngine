@@ -2,9 +2,7 @@
 #include "Application.h"
 namespace TerrainEngine
 {
-    Scene::Scene()
-        // : cameraController(1280.0f / 720.0f), objects({})
-    
+    Scene::Scene()    
         : cameraController((float)Application::Get().GetWindow().GetWindowProps().width / (float)Application::Get().GetWindow().GetWindowProps().width), objects({})
     {
     }

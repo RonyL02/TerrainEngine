@@ -3,28 +3,29 @@
 #include "../../Input.h"
 #include <GLFW/glfw3.h>
 #include <spdlog/spdlog.h>
+#include "GLFWKeyCodeMapper.h"
 namespace TerrainEngine
 {
     void GLFWCallback::Key(GLFWwindow *window, int key, int scancode, int action, int mods)
     {
         if (action == GLFW_PRESS)
         {
-            Input::SetKeyState((KeyCodes)key, Input::KeyState::KEY_DOWN);
+            Input::SetKeyState(GLFWToKeyCode(key), Input::KeyState::KEY_DOWN);
         }
         if (action == GLFW_RELEASE)
         {
-            Input::SetKeyState((KeyCodes)key, Input::KeyState::KEY_UP);
+            Input::SetKeyState(GLFWToKeyCode(key), Input::KeyState::KEY_UP);
         }
     }
     void GLFWCallback::MouseButton(GLFWwindow *window, int button, int action, int mods)
     {
         if (action == GLFW_PRESS)
         {
-            Input::SetKeyState((KeyCodes)button, Input::KeyState::KEY_DOWN);
+            Input::SetKeyState(GLFWToKeyCode(button), Input::KeyState::KEY_DOWN);
         }
         if (action == GLFW_RELEASE)
         {
-            Input::SetKeyState((KeyCodes)button, Input::KeyState::KEY_UP);
+            Input::SetKeyState(GLFWToKeyCode(button), Input::KeyState::KEY_UP);
         }
     }
     void GLFWCallback::FramebufferSize(GLFWwindow *window, int width, int height)
