@@ -3,6 +3,7 @@
 #include <GL/gl3w.h>
 #include "Input.h"
 #include "Time.h"
+#include "Log.h"
 namespace TerrainEngine
 {
   std::unique_ptr<Application> Application::instance;
@@ -20,7 +21,7 @@ namespace TerrainEngine
 
   void Application::Init()
   {
-    spdlog::info("initializing application");
+    TE_INFO("initializing application");
     this->window->Init();
     this->renderer->Init();
     this->layer->Init();
@@ -49,7 +50,7 @@ namespace TerrainEngine
 
   void Application::Run()
   {
-    spdlog::info("running application");
+    TE_INFO("running application");
     this->isRunning = true;
     while (this->IsRunning())
     {
@@ -71,7 +72,7 @@ namespace TerrainEngine
 
   void Application::Shutdown()
   {
-    spdlog::info("shutting down application");
+    TE_INFO("shutting down application");
     this->layer->Close();
     this->renderer->Shutdown();
     this->window->Close();

@@ -2,15 +2,14 @@
 #include "GLFWCallback.h"
 #include <GLFW/glfw3.h>
 #include <cstdlib>
-#include <spdlog/spdlog.h>
+#include <core/Log.h>
 namespace TerrainEngine
 {
-
   void GLFWWindow::Init()
   {
     if (!glfwInit())
     {
-      spdlog::error("failed to init glfw");
+      TE_ERROR("failed to init glfw");
       return;
     }
 
@@ -21,7 +20,7 @@ namespace TerrainEngine
 
     if (!this->handle)
     {
-      spdlog::error("failed to init glfw window");
+      TE_ERROR("failed to init glfw window");
       return;
     }
 
@@ -32,7 +31,7 @@ namespace TerrainEngine
     glfwSetFramebufferSizeCallback(this->handle, GLFWCallback::FramebufferSize);
     glfwMakeContextCurrent(this->handle);
     glfwSwapInterval(1);
-    spdlog::info("successfully created glfw window");
+    TE_INFO("successfully created glfw window");
   }
 
   void GLFWWindow::Close()
@@ -59,7 +58,7 @@ namespace TerrainEngine
 
   void GLFWWindow::TerminateGLFW()
   {
-    spdlog::info("terminating glfw");
+    TE_INFO("terminating glfw");
     glfwTerminate();
   }
 

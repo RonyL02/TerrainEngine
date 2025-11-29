@@ -1,5 +1,5 @@
 #pragma once
-#include "../../Window.h"
+#include "core/Window.h"
 
 struct GLFWwindow;
 namespace TerrainEngine

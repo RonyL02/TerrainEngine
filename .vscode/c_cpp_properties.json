@@ -8,7 +8,8 @@
                 "${workspaceFolder}/build/_deps/stb-src",
                 "${workspaceFolder}/build/_deps/glm-src",
                 "${workspaceFolder}/engine/src",
-                "${workspaceFolder}/build/_deps/gl3w-build/include"
+                "${workspaceFolder}/build/_deps/gl3w-build/include",
+                "${workspaceFolder}/engine/include"
             ],
             "defines": [
                 "_DEBUG",
