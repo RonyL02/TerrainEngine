@@ -1,9 +1,10 @@
 #include "GLFWCallback.h"
-#include "../../Application.h"
-#include "../../Input.h"
+#include "core/Application.h"
+#include "core/Input.h"
 #include <GLFW/glfw3.h>
 #include <spdlog/spdlog.h>
 #include "GLFWKeyCodeMapper.h"
+
 namespace TerrainEngine
 {
     void GLFWCallback::Key(GLFWwindow *window, int key, int scancode, int action, int mods)

@@ -1,7 +1,7 @@
 #pragma once
-#include "../graphics/Renderer.h"
 #include "Window.h"
 #include "Layer.h"
+#include "graphics/Renderer.h"
 
 #include <memory>
 namespace TerrainEngine

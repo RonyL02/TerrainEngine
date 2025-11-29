@@ -1,6 +1,6 @@
 #pragma once
 #include <GLFW/glfw3.h>
-#include "../../KeyCodes.h"
+#include "core/KeyCodes.h"
 
 namespace TerrainEngine
 {
