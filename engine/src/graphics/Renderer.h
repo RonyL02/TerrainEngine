@@ -1,6 +1,6 @@
 #pragma once
 #include <memory>
-#include "Drawable.h"
+#include "drawable/Drawable.h"
 #include "camera/Camera.h"
 namespace TerrainEngine
 {
@@ -12,10 +12,14 @@ namespace TerrainEngine
         virtual ~Renderer() = default;
         virtual void UpdateViewPort(int width, int height) = 0;
         virtual void Init() = 0;
-        virtual void StartDraw(const Camera &camera) = 0;
+        void StartDraw(const Camera &camera);
+        void Draw(Drawable &drawable);
         virtual void Shutdown() = 0;
-        virtual void Draw(Drawable &drawable) = 0;
         static std::unique_ptr<Renderer> Create();
+
+    private:
+        glm::mat4 view;
+        glm::mat4 projection;
     };
 
 }

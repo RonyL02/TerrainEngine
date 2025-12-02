@@ -89,7 +89,8 @@
         "print": "cpp",
         "complex": "cpp",
         "expected": "cpp",
-        "numeric": "cpp"
+        "numeric": "cpp",
+        "typeindex": "cpp"
     },
     "lldb.displayFormat": "auto",
     "lldb.showDisassembly": "auto",

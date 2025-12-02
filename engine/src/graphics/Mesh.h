@@ -1,8 +1,7 @@
 #pragma once
 #include <vector>
-#include <memory>
 #include <glm/glm.hpp>
-
+#include <memory>
 namespace TerrainEngine
 {
 
@@ -17,17 +16,15 @@ namespace TerrainEngine
     class Mesh
     {
     public:
-        Mesh(const std::vector<Vertex> &vertices, const std::vector<unsigned int> &indices);
-        ~Mesh() = default;
+        virtual ~Mesh() = default;
+        virtual void Draw() = 0;
 
-        unsigned int GetVAO() const { return this->vao; }
-        unsigned int GetIndexCount() const { return this->indexCount; }
-
-        static Mesh Cube();
+        static std::shared_ptr<Mesh> Create(const std::vector<Vertex> &vertices, const std::vector<unsigned int> &indices);
+        static std::shared_ptr<Mesh> CreateCube();
 
     private:
-        unsigned int vao = 0, vbo = 0, ebo = 0;
-        unsigned int indexCount = 0;
+        std::vector<Vertex> vertices;
+        std::vector<unsigned int> indices;
     };
 
 }

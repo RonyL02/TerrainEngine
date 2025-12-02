@@ -1,6 +1,6 @@
 #pragma once
 #include "graphics/camera/CameraController.h"
-#include "graphics/Drawable.h"
+#include "graphics/drawable/Drawable.h"
 #include <vector>
 namespace TerrainEngine
 {

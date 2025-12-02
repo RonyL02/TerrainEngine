@@ -2,7 +2,7 @@
 #include "core/Application.h"
 #include "core/Input.h"
 #include <GLFW/glfw3.h>
-#include <spdlog/spdlog.h>
+#include "core/Log.h"
 #include "GLFWKeyCodeMapper.h"
 
 namespace TerrainEngine
@@ -46,6 +46,6 @@ namespace TerrainEngine
 
     void GLFWCallback::ErrorCallback(int error, const char *description)
     {
-        spdlog::error("glfw error ({}): {}", error, description);
+        TE_ERROR("glfw error ({}): {}", error, description);
     }
 }

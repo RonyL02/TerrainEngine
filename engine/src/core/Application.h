@@ -2,23 +2,31 @@
 #include "Window.h"
 #include "Layer.h"
 #include "graphics/Renderer.h"
-
 #include <memory>
 namespace TerrainEngine
 {
+
+  struct AppProps
+  {
+    WindowProps windowProps;
+  };
 
   class Application
   {
   public:
     ~Application() = default;
-    Application();
+    Application(const AppProps& props);
 
     void Init();
     void SetLayer(std::unique_ptr<Layer> layer);
     void Exit();
+    static Application &Create(const AppProps& props);
     static Application &Get();
     inline Window &GetWindow() { return *this->window; }
     inline Renderer &GetRenderer() { return *this->renderer; }
+
+  private:
+    static std::unique_ptr<Application> instance;
 
   private:
     void Run();
@@ -27,7 +35,6 @@ namespace TerrainEngine
     bool isRunning;
     std::unique_ptr<Window> window;
     std::unique_ptr<Renderer> renderer;
-    static std::unique_ptr<Application> instance;
     std::unique_ptr<Layer> layer;
   };
 
