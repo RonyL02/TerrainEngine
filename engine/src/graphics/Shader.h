@@ -2,34 +2,28 @@
 #include <GL/gl3w.h>
 #include <string>
 #include <glm/glm.hpp>
-
+#include <memory>
 namespace TerrainEngine
 {
     class Shader
     {
     public:
-        Shader(std::string vertexShaderPath, std::string fragmentShaderPath);
-        ~Shader();
+        virtual ~Shader() = default;
 
-        void Bind();
-        void Unbind();
+        virtual void Bind() = 0;
+        virtual void Unbind() = 0;
 
-        void SetBool(const GLchar *name, GLboolean value);
-        void SetInt(const GLchar *name, GLuint value);
-        void SetFloat(const GLchar *name, GLfloat value);
+        virtual void SetBool(const GLchar *name, GLboolean value) = 0;
+        virtual void SetInt(const GLchar *name, GLuint value) = 0;
+        virtual void SetFloat(const GLchar *name, GLfloat value) = 0;
 
-        void SetVec2f(const GLchar *name, glm::vec2 value);
-        void SetVec3f(const GLchar *name, glm::vec3 value);
-        void SetVec4f(const GLchar *name, glm::vec4 value);
+        virtual void SetVec2f(const GLchar *name, glm::vec2 value) = 0;
+        virtual void SetVec3f(const GLchar *name, glm::vec3 value) = 0;
+        virtual void SetVec4f(const GLchar *name, glm::vec4 value) = 0;
 
-        void SetMat3f(const GLchar *name, glm::mat3 value);
-        void SetMat4f(const GLchar *name, glm::mat4 value);
+        virtual void SetMat3f(const GLchar *name, glm::mat3 value) = 0;
+        virtual void SetMat4f(const GLchar *name, glm::mat4 value) = 0;
 
-    private:
-        GLuint id;
-
-        std::string LoadShaderSource(std::string filePath);
-        GLuint LoadShader(std::string filePath, GLenum type);
-        GLuint LinkProgram(GLuint vertexShader, GLuint fragmentShader);
+        static std::shared_ptr<Shader> Create(const std::string &vertexPath, const std::string &fragmentPath);
     };
 }

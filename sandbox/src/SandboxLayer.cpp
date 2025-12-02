@@ -1,6 +1,7 @@
 #include "SandboxLayer.h"
-#include "spdlog/spdlog.h"
-#include <glm/ext.hpp>
+
+using namespace TerrainEngine;
+
 SandboxLayer::SandboxLayer() : TerrainEngine::Layer()
 {
 }
@@ -11,45 +12,53 @@ SandboxLayer::~SandboxLayer()
 
 void SandboxLayer::Init()
 {
-    spdlog::info("start sandox");
+    TE_INFO("start sandox");
 
-    auto cubeMesh = std::make_shared<TerrainEngine::Mesh>(TerrainEngine::Mesh::Cube());
-    auto cubeMaterial = std::make_shared<TerrainEngine::Material>();
-    cubeMaterial->Shader = std::make_shared<TerrainEngine::Shader>(RESOURCE_PATH + "/shaders/vertex.glsl", RESOURCE_PATH + "/shaders/fragment.glsl");
-    cubeMaterial->Color = glm::vec4(1.0f, 0.5f, 0.3f, 1.0f);
-    cubeMaterial->Diffuse = std::make_shared<TerrainEngine::Texture>(RESOURCE_PATH + "/textures/dabadi.png");
+    auto material = Material::Create(
+        Texture::Create("res/textures/dabadi.png"));
 
-    TerrainEngine::Drawable cube = TerrainEngine::Drawable{
-        .Mesh = cubeMesh,
-        .Material = cubeMaterial,
-        .Position = {0, 0, 3},
-        .Rotation = {1, 1, 1},
-        .Scale = {1, 1, 1}};
+    Drawable cube = {
+        .transform = {
+            .position = {0, 0, 0},
+            .rotation = {0, 0, 0},
+            .scale = {1, 1, 1}},
+        .mesh = Mesh::CreateCube(),
+        .material = material};
 
-    TerrainEngine::Drawable cube2 = TerrainEngine::Drawable{
-        .Mesh = cubeMesh,
-        .Material = cubeMaterial,
-        .Position = {0, 0, -3},
-        .Rotation = {1, 1, 1},
-        .Scale = {5, 5, 5}};
+    Drawable cube2 = {
+        .transform = {
+            .position = {0, 0, 3},
+            .rotation = {0, 0, 0},
+            .scale = {1, 1, 1}},
+        .mesh = Mesh::CreateCube(),
+        .material = material};
+
+    Drawable cube3 = Drawable{
+        .transform = Transform{
+            .position = {0, 0, -3},
+            .rotation = {0, 0, 0},
+            .scale = {5, 5, 5}},
+        .mesh = Mesh::CreateCube(),
+        .material = material};
 
     this->scene.AddObject(cube);
     this->scene.AddObject(cube2);
+    this->scene.AddObject(cube3);
 }
 
 void SandboxLayer::Update()
 {
-    if (TerrainEngine::Input::IsKeyPressed(TerrainEngine::KeyCodes::KEY_C))
+    if (Input::IsKeyPressed(KeyCodes::KEY_C))
     {
-        TerrainEngine::Application::Get().GetWindow().DisableCursor(true);
+        Application::Get().GetWindow().DisableCursor(true);
     }
-    if (TerrainEngine::Input::IsKeyPressed(TerrainEngine::KeyCodes::KEY_V))
+    if (Input::IsKeyPressed(KeyCodes::KEY_V))
     {
-        TerrainEngine::Application::Get().GetWindow().DisableCursor(false);
+        Application::Get().GetWindow().DisableCursor(false);
     }
-    if (TerrainEngine::Input::IsKeyPressed(TerrainEngine::KeyCodes::KEY_ESCAPE))
+    if (Input::IsKeyPressed(KeyCodes::KEY_ESCAPE))
     {
-        TerrainEngine::Application::Get().Exit();
+        Application::Get().Exit();
     }
 
     scene.cameraController.Move();

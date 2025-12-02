@@ -1,5 +1,4 @@
 #include "Application.h"
-#include <spdlog/spdlog.h>
 #include <GL/gl3w.h>
 #include "Input.h"
 #include "Time.h"
@@ -8,15 +7,11 @@ namespace TerrainEngine
 {
   std::unique_ptr<Application> Application::instance;
 
-  Application::Application()
+  Application::Application(const AppProps &props)
   {
     this->isRunning = false;
     this->renderer = Renderer::Create();
-    this->window = Window::Create(WindowProps{
-        .title = "yooo",
-        .width = 1000,
-        .height = 600,
-    });
+    this->window = Window::Create(props.windowProps);
   }
 
   void Application::Init()
@@ -38,13 +33,14 @@ namespace TerrainEngine
     this->isRunning = false;
   }
 
+  Application &Application::Create(const AppProps &props)
+  {
+    Application::instance = std::make_unique<Application>(props);
+    return *Application::instance;
+  }
+
   Application &Application::Get()
   {
-    if (!Application::instance)
-    {
-      Application::instance = std::make_unique<Application>();
-    }
-
     return *Application::instance;
   }
 
