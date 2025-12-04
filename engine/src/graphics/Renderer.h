@@ -1,6 +1,6 @@
 #pragma once
 #include <memory>
-#include "drawable/Drawable.h"
+#include "scene/entity/Entity.h"
 #include "camera/Camera.h"
 namespace TerrainEngine
 {
@@ -13,7 +13,7 @@ namespace TerrainEngine
         virtual void UpdateViewPort(int width, int height) = 0;
         virtual void Init() = 0;
         void StartDraw(const Camera &camera);
-        void Draw(Drawable &drawable);
+        void Draw(Entity &entity);
         virtual void Shutdown() = 0;
         static std::unique_ptr<Renderer> Create();
 

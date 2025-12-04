@@ -1,5 +1,6 @@
 #pragma once
-#include "Scene.h"
+#include "scene/Scene.h"
+
 namespace TerrainEngine
 {
     class Layer
@@ -10,6 +11,7 @@ namespace TerrainEngine
         virtual void Init() = 0;
         virtual void Update() = 0;
         void Render();
+        void UpdateScene();
         virtual void Close() = 0;
 
     protected:

@@ -1,21 +1,22 @@
 #pragma once
-#include "graphics/camera/CameraController.h"
-#include "graphics/drawable/Drawable.h"
+#include "CameraController.h"
 #include <vector>
+#include <memory>
+#include "scene/entity/Entity.h"
 namespace TerrainEngine
 {
     class Scene
     {
     public:
         Scene();
-        ~Scene() = default;
+        ~Scene();
         void Update();
         void Render();
-        void AddObject(const Drawable &object);
+        void AddObject(Entity *entity);
 
         CameraController cameraController;
 
     private:
-        std::vector<Drawable> objects;
+        std::vector<std::shared_ptr<Entity>> entities;
     };
 }

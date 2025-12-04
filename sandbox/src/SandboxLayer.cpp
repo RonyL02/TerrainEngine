@@ -16,30 +16,30 @@ void SandboxLayer::Init()
 
     auto material = Material::Create(
         Texture::Create("res/textures/dabadi.png"));
+    auto cubeMesh = Mesh::CreateCube();
 
-    Drawable cube = {
-        .transform = {
+    auto cube = new Entity(
+        Transform{
             .position = {0, 0, 0},
             .rotation = {0, 0, 0},
             .scale = {1, 1, 1}},
-        .mesh = Mesh::CreateCube(),
-        .material = material};
+        cubeMesh,
+        material);
 
-    Drawable cube2 = {
-        .transform = {
+    auto cube2 = new MovableObject(
+        Transform{
             .position = {0, 0, 3},
             .rotation = {0, 0, 0},
             .scale = {1, 1, 1}},
-        .mesh = Mesh::CreateCube(),
-        .material = material};
+        cubeMesh,
+        material);
 
-    Drawable cube3 = Drawable{
-        .transform = Transform{
+    auto cube3 = new Entity(
+        Transform{
             .position = {0, 0, -3},
             .rotation = {0, 0, 0},
-            .scale = {5, 5, 5}},
-        .mesh = Mesh::CreateCube(),
-        .material = material};
+            .scale = {1, 1, 1}},
+        Mesh::CreateCube(), material);
 
     this->scene.AddObject(cube);
     this->scene.AddObject(cube2);

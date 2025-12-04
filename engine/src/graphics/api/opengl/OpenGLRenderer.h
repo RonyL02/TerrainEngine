@@ -1,7 +1,5 @@
 #pragma once
 #include "graphics/Renderer.h"
-#include "graphics/drawable/Drawable.h"
-#include "graphics/camera/Camera.h"
 namespace TerrainEngine
 {
 

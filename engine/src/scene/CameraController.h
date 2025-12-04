@@ -1,7 +1,7 @@
 #pragma once
-#include "PerspectiveCamera.h"
-#include "../../core/Input.h"
-#include "../../core/Time.h"
+#include "graphics/camera/PerspectiveCamera.h"
+#include "core/Input.h"
+#include "core/Time.h"
 namespace TerrainEngine
 {
     class CameraController
