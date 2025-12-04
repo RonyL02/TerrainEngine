@@ -6,4 +6,8 @@ namespace TerrainEngine
     {
         this->scene.Render();
     }
-} 
+    void Layer::UpdateScene()
+    {
+        this->scene.Update();
+    }
+}

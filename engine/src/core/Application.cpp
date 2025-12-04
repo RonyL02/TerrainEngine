@@ -70,6 +70,7 @@ namespace TerrainEngine
   {
     TE_INFO("shutting down application");
     this->layer->Close();
+    this->layer.reset();
     this->renderer->Shutdown();
     this->window->Close();
   }

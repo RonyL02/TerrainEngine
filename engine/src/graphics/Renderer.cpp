@@ -7,16 +7,16 @@ namespace TerrainEngine
         return std::make_unique<OpenGLRenderer>();
     }
 
-    void Renderer::Draw(Drawable &drawable)
+    void Renderer::Draw(Entity &entity)
     {
-        drawable.material->shader->Bind();
-        drawable.material->shader->SetMat4f("view", this->view);
-        drawable.material->shader->SetMat4f("model", drawable.transform.GetMatrix());
-        drawable.material->shader->SetMat4f("projection", this->projection);
-        if (drawable.material->texture)
-            drawable.material->texture->Bind();
+        entity.material->shader->Bind();
+        entity.material->shader->SetMat4f("view", this->view);
+        entity.material->shader->SetMat4f("model", entity.transform.GetMatrix());
+        entity.material->shader->SetMat4f("projection", this->projection);
+        if (entity.material->texture)
+            entity.material->texture->Bind();
 
-        drawable.mesh->Draw();
+        entity.mesh->Draw();
     }
 
     void Renderer::StartDraw(const Camera &camera)
