@@ -7,11 +7,9 @@ namespace TerrainEngine
   class GLFWWindow : public Window
   {
   public:
-    GLFWWindow(WindowProps props) : Window(props), handle(nullptr) {}
-    ~GLFWWindow() = default;
+    GLFWWindow(WindowProps props);
+    ~GLFWWindow() override;
 
-    void Init() override;
-    void Close() override;
     void PollEvents() override;
     void SwapBuffers() override;
     bool ShouldClose() override;

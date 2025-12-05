@@ -7,7 +7,7 @@ namespace TerrainEngine
     class OpenGLTexture : public Texture
     {
     public:
-        OpenGLTexture(std::string filePath);
+        OpenGLTexture(const std::string &filePath);
         ~OpenGLTexture();
 
         void Bind() override;

@@ -16,10 +16,7 @@ namespace TerrainEngine
                std::shared_ptr<Mesh> mesh,
                std::shared_ptr<Material> material)
             : transform(transform), mesh(mesh), material(material) {}
-        virtual ~Entity()
-        {
-            TE_INFO("destroyd obj");
-        }
+        virtual ~Entity() = default;
         Transform transform;
         std::shared_ptr<Mesh> mesh;
         std::shared_ptr<Material> material;

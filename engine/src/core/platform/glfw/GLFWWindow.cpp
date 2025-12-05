@@ -5,7 +5,7 @@
 #include <core/Log.h>
 namespace TerrainEngine
 {
-  void GLFWWindow::Init()
+  GLFWWindow::GLFWWindow(WindowProps props) : Window(props), handle(nullptr)
   {
     if (!glfwInit())
     {
@@ -34,10 +34,13 @@ namespace TerrainEngine
     TE_INFO("successfully created glfw window");
   }
 
-  void GLFWWindow::Close()
+  GLFWWindow::~GLFWWindow()
   {
-    glfwDestroyWindow(this->handle);
-    this->handle = nullptr;
+    if (this->handle)
+    {
+      glfwDestroyWindow(this->handle);
+      this->handle = nullptr;
+    }
   }
 
   void GLFWWindow::PollEvents() { glfwPollEvents(); }

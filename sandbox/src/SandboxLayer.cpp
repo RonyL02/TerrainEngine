@@ -4,14 +4,6 @@ using namespace TerrainEngine;
 
 SandboxLayer::SandboxLayer() : TerrainEngine::Layer()
 {
-}
-
-SandboxLayer::~SandboxLayer()
-{
-}
-
-void SandboxLayer::Init()
-{
     TE_INFO("start sandox");
 
     auto material = Material::Create(
@@ -46,7 +38,12 @@ void SandboxLayer::Init()
     this->scene.AddObject(cube3);
 }
 
-void SandboxLayer::Update()
+SandboxLayer::~SandboxLayer()
+{
+    TE_INFO("closing sandbox layer");
+}
+
+void SandboxLayer::OnUpdate()
 {
     if (Input::IsKeyPressed(KeyCodes::KEY_C))
     {
@@ -63,8 +60,4 @@ void SandboxLayer::Update()
 
     scene.cameraController.Move();
     scene.cameraController.UpdateDirection();
-}
-
-void SandboxLayer::Close()
-{
 }
