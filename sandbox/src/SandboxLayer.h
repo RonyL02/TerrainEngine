@@ -26,6 +26,6 @@ class SandboxLayer : public TerrainEngine::Layer
 {
 public:
     SandboxLayer();
-    ~SandboxLayer() override;
+    ~SandboxLayer();
     void OnUpdate() override;
 };

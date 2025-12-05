@@ -7,7 +7,7 @@ namespace TerrainEngine
     {
     public:
         OpenGLRenderer();
-        ~OpenGLRenderer() override;
+        ~OpenGLRenderer();
 
         void UpdateViewPort(int width, int height) override;
     };

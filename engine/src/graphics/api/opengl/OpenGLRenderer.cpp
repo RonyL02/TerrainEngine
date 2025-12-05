@@ -26,6 +26,7 @@ namespace TerrainEngine
 
     OpenGLRenderer::~OpenGLRenderer()
     {
+        TE_INFO("closing renderer");
         GLenum error = glGetError();
         if (error != GL_NO_ERROR)
         {
