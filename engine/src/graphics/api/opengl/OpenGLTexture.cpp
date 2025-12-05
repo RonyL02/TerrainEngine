@@ -1,13 +1,12 @@
 #include "OpenGLTexture.h"
 #define STB_IMAGE_IMPLEMENTATION
 #include <stb_image.h>
-
 #include "core/Log.h"
 
 namespace TerrainEngine
 {
 
-    OpenGLTexture::OpenGLTexture(std::string filePath)
+    OpenGLTexture::OpenGLTexture(const std::string &filePath)
     {
         glGenTextures(1, &this->id);
         this->Bind();
@@ -28,7 +27,7 @@ namespace TerrainEngine
         }
         else
         {
-            TE_ERROR("TEXTURE::Failed to load texture");
+            TE_ERROR("TEXTURE::Failed to load texture: {}", filePath);
         }
         stbi_image_free(data);
         this->Unbind();

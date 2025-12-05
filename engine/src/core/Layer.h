@@ -8,11 +8,19 @@ namespace TerrainEngine
     public:
         Layer() = default;
         virtual ~Layer() = default;
-        virtual void Init() = 0;
-        virtual void Update() = 0;
-        void Render();
-        void UpdateScene();
-        virtual void Close() = 0;
+        
+        void Update()
+        {
+            this->OnUpdate();
+            this->scene.Update();
+        }
+        
+        void Render()
+        {
+            this->scene.Render();
+        }
+        
+        virtual void OnUpdate() {}
 
     protected:
         Scene scene;

@@ -7,7 +7,7 @@
 namespace TerrainEngine
 {
 
-    void OpenGLRenderer::Init()
+    OpenGLRenderer::OpenGLRenderer()
     {
         if (gl3wInit())
         {
@@ -18,15 +18,13 @@ namespace TerrainEngine
         TE_INFO("successfully initialized gl3w");
         TE_INFO("opengl version {}", reinterpret_cast<const char *>(glGetString(GL_VERSION)));
 
-        this->UpdateViewPort(Application::Get().GetWindow().GetWindowProps().width, Application::Get().GetWindow().GetWindowProps().height);
-
         glEnable(GL_DEPTH_TEST);
         // glEnable(GL_CULL_FACE);
         glCullFace(GL_BACK);
         glFrontFace(GL_CCW);
     }
 
-    void OpenGLRenderer::Shutdown()
+    OpenGLRenderer::~OpenGLRenderer()
     {
         GLenum error = glGetError();
         if (error != GL_NO_ERROR)

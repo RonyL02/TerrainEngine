@@ -8,19 +8,16 @@ namespace TerrainEngine
   std::unique_ptr<Application> Application::instance;
 
   Application::Application(const AppProps &props)
-  {
-    this->isRunning = false;
-    this->renderer = Renderer::Create();
-    this->window = Window::Create(props.windowProps);
-  }
-
-  void Application::Init()
+      : isRunning(false),
+        window(Window::Create(props.windowProps)),
+        renderer(Renderer::Create())
   {
     TE_INFO("initializing application");
-    this->window->Init();
-    this->renderer->Init();
-    this->layer->Init();
-    this->Run();
+  }
+
+  Application::~Application()
+  {
+    TE_INFO("shutting down application");
   }
 
   void Application::SetLayer(std::unique_ptr<Layer> layer)
@@ -39,14 +36,13 @@ namespace TerrainEngine
     return *Application::instance;
   }
 
-  Application &Application::Get()
-  {
-    return *Application::instance;
-  }
-
   void Application::Run()
   {
     TE_INFO("running application");
+
+    auto props = this->window->GetWindowProps();
+    this->renderer->UpdateViewPort(props.width, props.height);
+
     this->isRunning = true;
     while (this->IsRunning())
     {
@@ -63,16 +59,7 @@ namespace TerrainEngine
       Input::SetMouseOffset(0, 0);
     }
 
-    this->Shutdown();
-  }
-
-  void Application::Shutdown()
-  {
-    TE_INFO("shutting down application");
-    this->layer->Close();
-    this->layer.reset();
-    this->renderer->Shutdown();
-    this->window->Close();
+    Application::instance.reset();
   }
 
   bool Application::IsRunning()

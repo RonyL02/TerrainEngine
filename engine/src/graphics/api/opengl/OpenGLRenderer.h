@@ -6,11 +6,9 @@ namespace TerrainEngine
     class OpenGLRenderer : public Renderer
     {
     public:
-        OpenGLRenderer() {};
-        ~OpenGLRenderer() = default;
+        OpenGLRenderer();
+        ~OpenGLRenderer() override;
 
-        void Init() override;
-        void Shutdown() override;
         void UpdateViewPort(int width, int height) override;
     };
 

@@ -9,5 +9,5 @@ int main()
                                               .height = 400
                                             }});
   application.SetLayer(std::make_unique<SandboxLayer>());
-  application.Init();
+  application.Run();
 }
