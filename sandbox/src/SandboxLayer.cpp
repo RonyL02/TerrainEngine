@@ -10,32 +10,46 @@ SandboxLayer::SandboxLayer() : TerrainEngine::Layer()
         Texture::Create("res/textures/dabadi.png"));
     auto cubeMesh = Mesh::CreateCube();
 
-    auto cube = new Entity(
+    Chunk chunk = Chunk();
+
+    auto chunkMesh = chunk.GenerateMesh();
+
+    auto chunkEntity = new Entity(
         Transform{
             .position = {0, 0, 0},
             .rotation = {0, 0, 0},
             .scale = {1, 1, 1}},
-        cubeMesh,
+        chunkMesh,
         material);
 
-    auto cube2 = new MovableObject(
-        Transform{
-            .position = {0, 0, 3},
-            .rotation = {0, 0, 0},
-            .scale = {1, 1, 1}},
-        cubeMesh,
-        material);
+    scene.AddObject(chunkEntity);
 
-    auto cube3 = new Entity(
-        Transform{
-            .position = {0, 0, -3},
-            .rotation = {0, 0, 0},
-            .scale = {1, 1, 1}},
-        Mesh::CreateCube(), material);
+    // auto cube = new Entity(
+    //     Transform{
+    //         .position = {0, 0, 0},
+    //         .rotation = {0, 0, 0},
+    //         .scale = {1, 1, 1}},
+    //     cubeMesh,
+    //     material);
 
-    this->scene.AddObject(cube);
-    this->scene.AddObject(cube2);
-    this->scene.AddObject(cube3);
+    // auto cube2 = new MovableObject(
+    //     Transform{
+    //         .position = {0, 0, 3},
+    //         .rotation = {0, 0, 0},
+    //         .scale = {1, 1, 1}},
+    //     cubeMesh,
+    //     material);
+
+    // auto cube3 = new Entity(
+    //     Transform{
+    //         .position = {0, 0, -3},
+    //         .rotation = {0, 0, 0},
+    //         .scale = {1, 1, 1}},
+    //     Mesh::CreateCube(), material);
+
+    // this->scene.AddObject(cube);
+    // this->scene.AddObject(cube2);
+    // this->scene.AddObject(cube3);
 }
 
 SandboxLayer::~SandboxLayer()
@@ -55,6 +69,7 @@ void SandboxLayer::OnUpdate()
     }
     if (Input::IsKeyPressed(KeyCodes::KEY_ESCAPE))
     {
+        TE_INFO("Escape pressed - closing application");
         Application::Get().Exit();
     }
 
