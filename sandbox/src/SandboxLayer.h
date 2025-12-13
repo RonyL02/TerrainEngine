@@ -28,4 +28,8 @@ public:
     SandboxLayer();
     ~SandboxLayer();
     void OnUpdate() override;
+    void OnRender() override;
+
+private:
+    VoxelWorld voxelWorld;
 };

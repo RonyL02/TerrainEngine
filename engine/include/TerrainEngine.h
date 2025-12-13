@@ -5,4 +5,5 @@
 #include "graphics/Renderer.h"
 #include "core/Input.h"
 #include "core/Log.h"
-#include "terrains/voxel/Chunk.h"
+#include "terrains/voxel/VoxelChunk.h"
+#include "terrains/voxel/VoxelWorld.h"
