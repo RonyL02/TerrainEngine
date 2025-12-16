@@ -6,4 +6,4 @@
 #include "core/Input.h"
 #include "core/Log.h"
 #include "terrains/voxel/VoxelChunk.h"
-#include "terrains/voxel/VoxelWorld.h"
+#include "terrains/voxel/VoxelChunkManager.h"

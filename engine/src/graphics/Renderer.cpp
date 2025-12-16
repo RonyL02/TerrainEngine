@@ -7,8 +7,7 @@ namespace TerrainEngine
         return std::make_unique<OpenGLRenderer>();
     }
 
-    void Renderer::Draw(Entity &entity)
-    {
+    void Renderer::Draw(const Entity &entity) const {
         entity.material->shader->Bind();
         entity.material->shader->SetMat4f("view", this->view);
         entity.material->shader->SetMat4f("model", entity.transform.GetMatrix());

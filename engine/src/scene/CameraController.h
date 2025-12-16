@@ -79,7 +79,7 @@ namespace TerrainEngine
         glm::vec3 up{0.0f, 1.0f, 0.0f};
         float yaw = -90.0f;
         float pitch = 0.0f;
-        float speed = 1.2f;
+        float speed = 2.5f;
         float sensitivity = 0.1f;
     };
 }
