@@ -1,10 +1,12 @@
 #include "VoxelChunkManager.h"
 
+#include <utility>
+
 #include "core/Application.h"
 
 namespace TerrainEngine {
-    VoxelChunkManager::VoxelChunkManager(const VoxelChunkManagerConfig &config)
-        : config(config) {
+    VoxelChunkManager::VoxelChunkManager(VoxelChunkManagerConfig config)
+        : config(std::move(config)) {
     }
 
     VoxelChunkManager::~VoxelChunkManager() {
@@ -23,14 +25,14 @@ namespace TerrainEngine {
             for (size_t y = 0; y < countY; y++) {
                 for (size_t z = 0; z < countZ; z++) {
                     const glm::vec3 chunkPosition = static_cast<float>(chunkSize) * glm::vec3(x, y, z);
-                    loadedChunks.push_back(VoxelChunk(chunkSize, chunkPosition));
+                    loadedChunks.emplace_back(chunkSize, chunkPosition);
                 }
             }
         }
     }
 
     void VoxelChunkManager::Render() const {
-        for (auto entity: visibleChunkEntities) {
+        for (const auto& entity: visibleChunkEntities) {
             Application::Get().GetRenderer().Draw(entity);
         }
     }
@@ -45,7 +47,7 @@ namespace TerrainEngine {
                         .rotation = {0, 0, 0},
                         .scale = {1, 1, 1}
                     },
-                    chunk.CreateMesh(),
+                    chunk.CreateMesh(loadedChunks),
                     config.material)
             );
         }

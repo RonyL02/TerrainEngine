@@ -15,7 +15,7 @@ namespace TerrainEngine {
 
     class VoxelChunkManager {
     public:
-        VoxelChunkManager(const VoxelChunkManagerConfig &config);
+        VoxelChunkManager(VoxelChunkManagerConfig config);
 
         ~VoxelChunkManager();
 
