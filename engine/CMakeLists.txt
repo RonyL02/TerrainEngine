@@ -29,3 +29,12 @@ if (stb_ADDED)
 endif()
 
 target_include_directories(${lib_name} PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/src)
+
+if(CMAKE_BUILD_TYPE MATCHES Debug)
+    target_compile_options(${lib_name} PRIVATE
+        -g
+        -O0
+        -gcodeview
+        -gdwarf
+    )
+endif()
