@@ -13,26 +13,29 @@ namespace TerrainEngine {
     }
 
     void VoxelChunkManager::LoadChunks(const glm::vec3 &cameraPosition) {
-        const size_t countX = config.worldDimensions.x;
-        const size_t countY = config.worldDimensions.y;
-        const size_t countZ = config.worldDimensions.z;
-
-        const size_t chunkSize = config.chunkSize;
+        const int chunkOffset = static_cast<int>(config.chunkSize);
+        const float loadedChunksRadius = config.renderDistance + 2.0f * static_cast<float>(chunkOffset);
 
         loadedChunks.clear();
 
-        for (size_t x = 0; x < countX; x++) {
-            for (size_t y = 0; y < countY; y++) {
-                for (size_t z = 0; z < countZ; z++) {
-                    const glm::vec3 chunkPosition = static_cast<float>(chunkSize) * glm::vec3(x, y, z);
-                    loadedChunks.emplace_back(chunkSize, chunkPosition);
+        const int renderDistanceRange = static_cast<int>(loadedChunksRadius / 2);
+
+        for (int x = -renderDistanceRange; x < renderDistanceRange; x++) {
+            for (int y = -renderDistanceRange; y < renderDistanceRange; y++) {
+                for (int z = -renderDistanceRange; z < renderDistanceRange; z++) {
+                    glm::ivec3 chunkPos = glm::ivec3(x, y, z) * chunkOffset;
+                    glm::vec3 chunkCenter = glm::vec3(chunkPos) + (static_cast<float>(chunkOffset) / 2.0f);
+
+                    if (const float distanceToCamera = glm::length(chunkCenter - cameraPosition); distanceToCamera <= loadedChunksRadius) {
+                        loadedChunks.emplace_back(config.chunkSize, chunkPos);
+                    }
                 }
             }
         }
     }
 
     void VoxelChunkManager::Render() const {
-        for (const auto& entity: visibleChunkEntities) {
+        for (const auto &entity: visibleChunkEntities) {
             Application::Get().GetRenderer().Draw(entity);
         }
     }

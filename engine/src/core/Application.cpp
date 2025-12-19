@@ -32,15 +32,15 @@ namespace TerrainEngine
 
   Application &Application::Create(const AppProps &props)
   {
-    Application::instance = std::make_unique<Application>(props);
-    return *Application::instance;
+    instance = std::make_unique<Application>(props);
+    return *instance;
   }
 
   void Application::Run()
   {
     TE_INFO("running application");
 
-    auto props = this->window->GetWindowProps();
+    const auto props = this->window->GetWindowProps();
     this->renderer->UpdateViewPort(props.width, props.height);
 
     this->isRunning = true;
@@ -59,11 +59,10 @@ namespace TerrainEngine
       Input::SetMouseOffset(0, 0);
     }
 
-    Application::instance.reset();
+    instance.reset();
   }
 
-  bool Application::IsRunning()
-  {
+  bool Application::IsRunning() const {
     return this->isRunning && !this->window->ShouldClose();
   }
 

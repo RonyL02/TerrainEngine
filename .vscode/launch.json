@@ -10,6 +10,14 @@
       "request": "launch",
       "program": "${workspaceFolder}\\build\\sandbox\\Sandbox.exe",
       "cwd": "${workspaceFolder}",
+    },
+    {
+      "name": "CMake/Launch - Sandbox",
+      "type": "cppvsdbg",
+      "request": "launch",
+      "program": "${command:cmake.launchTargetPath}",
+      "cwd": "${workspaceFolder}", // This sets working directory to project root
+      "args": []
     }
   ]
 }

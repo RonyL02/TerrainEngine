@@ -1,9 +1,10 @@
 #include "VoxelChunk.h"
 #include "graphics/Mesh.h"
 #include "Voxel.h"
+#include "core/Log.h"
 
 namespace TerrainEngine {
-    VoxelChunk::VoxelChunk(const size_t size, const glm::vec3 position) : voxelMap(size * size * size),
+    VoxelChunk::VoxelChunk(const size_t size, const glm::ivec3 position) : voxelMap(size * size * size),
                                                                           position(position), size(size) {
         for (size_t x = 0; x < size; x++) {
             for (size_t y = 0; y < size; y++) {
@@ -28,20 +29,20 @@ namespace TerrainEngine {
                             continue;
                         }
 
-                        const glm::ivec3 neighborCoord = glm::ivec3(x, y, z) + glm::ivec3(
-                                                             Voxel::FACE_NORMALS[faceIndex]);
+                        const glm::ivec3 neighborCoord = glm::ivec3(x, y, z) + Voxel::FACE_NORMALS[faceIndex];
 
                         if (const int neighborType = GetVoxelType(neighborCoord); neighborType != -1) {
                             if (neighborType != 0) {
                                 continue;
                             }
                         } else {
-                            glm::vec3 neighboringChunkPosition =
-                                    position + glm::vec3(Voxel::FACE_NORMALS[faceIndex]) * static_cast<float>(size);
+                            glm::ivec3 neighboringChunkPosition =
+                                   glm::ivec3(
+                                       position + glm::ivec3(Voxel::FACE_NORMALS[faceIndex]) * static_cast<int>(size));
 
                             auto it = std::ranges::find_if(neighboringChunks,
                                                            [&neighboringChunkPosition](const VoxelChunk &chunk) {
-                                                               return chunk.GetPosition() == neighboringChunkPosition;
+                                                               return glm::ivec3(chunk.GetPosition()) == neighboringChunkPosition;
                                                            });
                             if (it != neighboringChunks.end()) {
                                 glm::ivec3 wrappedCoord;
@@ -68,19 +69,19 @@ namespace TerrainEngine {
                         }
 
                         vertices.push_back({
-                            glm::vec3{x, y, z} + Voxel::FACES[faceIndex][0], glm::vec4(x, y, z, 1),
+                            glm::ivec3{x, y, z} + Voxel::FACES[faceIndex][0], glm::vec4(x, y, z, 1),
                             glm::vec3(1), {0, 0}
                         });
                         vertices.push_back({
-                            glm::vec3{x, y, z} + Voxel::FACES[faceIndex][1], glm::vec4(x, y, z, 1),
+                            glm::ivec3{x, y, z} + Voxel::FACES[faceIndex][1], glm::vec4(x, y, z, 1),
                             glm::vec3(1), {1, 0}
                         });
                         vertices.push_back({
-                            glm::vec3{x, y, z} + Voxel::FACES[faceIndex][2], glm::vec4(x, y, z, 1),
+                            glm::ivec3{x, y, z} + Voxel::FACES[faceIndex][2], glm::vec4(x, y, z, 1),
                             glm::vec3(1), {1, 1}
                         });
                         vertices.push_back({
-                            glm::vec3{x, y, z} + Voxel::FACES[faceIndex][3], glm::vec4(x, y, z, 1),
+                            glm::ivec3{x, y, z} + Voxel::FACES[faceIndex][3], glm::vec4(x, y, z, 1),
                             glm::vec3(1), {0, 1}
                         });
 

@@ -4,8 +4,8 @@ using namespace TerrainEngine;
 
 SandboxLayer::SandboxLayer() : Layer(),
                                voxelChunkManager(VoxelChunkManagerConfig{
-                                   .chunkSize = 16,
-                                   .renderDistance = 100.0f,
+                                   .chunkSize = 2,
+                                   .renderDistance = 10.0f,
                                    .worldDimensions = {2, 2, 2},
                                    .material = Material::Create(Texture::Create("res/textures/dabadi.png"))
                                }) {
