@@ -3,6 +3,10 @@
 #include <utility>
 
 #include "core/Application.h"
+#define GLM_ENABLE_EXPERIMENTAL
+#include <algorithm>
+
+#include "glm/gtx/string_cast.hpp"
 
 namespace TerrainEngine {
     VoxelChunkManager::VoxelChunkManager(VoxelChunkManagerConfig config)
@@ -14,21 +18,15 @@ namespace TerrainEngine {
 
     void VoxelChunkManager::LoadChunks(const glm::vec3 &cameraPosition) {
         const int chunkOffset = static_cast<int>(config.chunkSize);
-        const float loadedChunksRadius = config.renderDistance + 2.0f * static_cast<float>(chunkOffset);
-
+        const int loadedChunksRadius = config.renderDistance;
+        const auto position = glm::ivec3(cameraPosition) / chunkOffset;
         loadedChunks.clear();
 
-        const int renderDistanceRange = static_cast<int>(loadedChunksRadius / 2);
-
-        for (int x = -renderDistanceRange; x < renderDistanceRange; x++) {
-            for (int y = -renderDistanceRange; y < renderDistanceRange; y++) {
-                for (int z = -renderDistanceRange; z < renderDistanceRange; z++) {
+        for (int x = position.x - loadedChunksRadius; x < loadedChunksRadius + position.x; x++) {
+            for (int y = position.y - loadedChunksRadius; y < loadedChunksRadius + position.y; y++) {
+                for (int z = position.z - loadedChunksRadius; z < loadedChunksRadius + position.z; z++) {
                     glm::ivec3 chunkPos = glm::ivec3(x, y, z) * chunkOffset;
-                    glm::vec3 chunkCenter = glm::vec3(chunkPos) + (static_cast<float>(chunkOffset) / 2.0f);
-
-                    if (const float distanceToCamera = glm::length(chunkCenter - cameraPosition); distanceToCamera <= loadedChunksRadius) {
-                        loadedChunks.emplace_back(config.chunkSize, chunkPos);
-                    }
+                    loadedChunks.emplace_back(config.chunkSize, chunkPos);
                 }
             }
         }
@@ -54,5 +52,40 @@ namespace TerrainEngine {
                     config.material)
             );
         }
+    }
+
+    void VoxelChunkManager::Update(const glm::vec3 &cameraPosition) {
+        const auto currentChunkPos = glm::ivec3(cameraPosition) / static_cast<int>(config.chunkSize);
+        if (currentChunkPos == lastChunkPos) {
+            return;
+        }
+        lastChunkPos = currentChunkPos;
+        std::vector<glm::ivec3> newChunkPositions;
+        const int loadedChunksRadius = config.renderDistance;
+        for (int x = currentChunkPos.x - loadedChunksRadius; x < loadedChunksRadius + currentChunkPos.x; x++) {
+            for (int y = currentChunkPos.y - loadedChunksRadius; y < loadedChunksRadius + currentChunkPos.y; y++) {
+                for (int z = currentChunkPos.z - loadedChunksRadius; z < loadedChunksRadius + currentChunkPos.z; z++) {
+                    glm::ivec3 chunkPos = glm::ivec3(x, y, z) * static_cast<int>(config.chunkSize);
+                    newChunkPositions.push_back(chunkPos);
+                }
+            }
+        }
+
+        std::erase_if(loadedChunks, [&newChunkPositions, this](const VoxelChunk &chunk) {
+            const glm::ivec3 chunkGridPos = glm::ivec3(chunk.GetPosition()) / static_cast<int>(config.chunkSize);
+            return std::ranges::find(newChunkPositions, chunkGridPos * static_cast<int>(config.chunkSize)) ==
+                   newChunkPositions.end();
+        });
+
+        for (const auto &pos: newChunkPositions) {
+            const bool alreadyLoaded = std::ranges::any_of(loadedChunks, [&pos](const VoxelChunk &chunk) {
+                return glm::ivec3(chunk.GetPosition()) == pos;
+            });
+            if (!alreadyLoaded) {
+                loadedChunks.emplace_back(config.chunkSize, pos);
+            }
+        }
+
+        UpdateChunkEntities();
     }
 }

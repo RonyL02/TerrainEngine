@@ -8,7 +8,7 @@
 namespace TerrainEngine {
     struct VoxelChunkManagerConfig {
         size_t chunkSize = 16;
-        float renderDistance = 100.0f;
+        int renderDistance = 2;
         glm::ivec3 worldDimensions = {2, 2, 2};
         std::shared_ptr<Material> material;
     };
@@ -24,9 +24,12 @@ namespace TerrainEngine {
         void UpdateChunkEntities();
 
         void Render() const;
+
+        void Update(const glm::vec3 &cameraPosition) ;
     private:
         std::vector<VoxelChunk> loadedChunks;
         std::vector<Entity> visibleChunkEntities;
         VoxelChunkManagerConfig config;
+        glm::ivec3 lastChunkPos = glm::ivec3(0, 0, 0);
     };
 }

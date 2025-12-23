@@ -4,8 +4,8 @@ using namespace TerrainEngine;
 
 SandboxLayer::SandboxLayer() : Layer(),
                                voxelChunkManager(VoxelChunkManagerConfig{
-                                   .chunkSize = 2,
-                                   .renderDistance = 10.0f,
+                                   .chunkSize = 4,
+                                   .renderDistance = 6,
                                    .worldDimensions = {2, 2, 2},
                                    .material = Material::Create(Texture::Create("res/textures/dabadi.png"))
                                }) {
@@ -32,6 +32,7 @@ void SandboxLayer::OnUpdate() {
 
     scene.cameraController.Move();
     scene.cameraController.UpdateDirection();
+    voxelChunkManager.Update(scene.cameraController.GetCamera().GetPosition());
 }
 
 void SandboxLayer::OnRender() {
