@@ -1,5 +1,3 @@
-#include  <TerrainEngine/Core.h>
+#include <TerrainEngine/Core.h>
 
-int main() {
-    Core::Hello();
-}
+int main() { Core::Hello(); }

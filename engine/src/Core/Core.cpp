@@ -1,6 +1,5 @@
 #include "TerrainEngine/Core.h"
+
 #include "Func.h"
 
-void Core::Hello() {
-    Func::PrintHello();
-}
+void Core::Hello() { Func::PrintHello(); }
