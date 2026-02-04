@@ -1,3 +1,3 @@
-#include <TerrainEngine/Core.h>
+#include <TerrainEngine/TerrainEngine.h>
 
-int main() { Core::Hello(); }
+int main() { TerrainEngine::StartApplication(); }
