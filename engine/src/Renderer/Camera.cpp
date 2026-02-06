@@ -1,7 +1,5 @@
 #include "TerrainEngine/Camera.h"
-
-#include "TerrainEngine/Camera.h"
-#include <cmath>
+#include <raymath.h>
 
 namespace TerrainEngine {
   Camera::Camera()
@@ -21,11 +19,7 @@ namespace TerrainEngine {
     m_Forward.y = sinf(pitchRad);
     m_Forward.z = sinf(yawRad) * cosf(pitchRad);
 
-    float length = sqrtf(m_Forward.x * m_Forward.x + m_Forward.y * m_Forward.y +
-                         m_Forward.z * m_Forward.z);
-    m_Forward.x /= length;
-    m_Forward.y /= length;
-    m_Forward.z /= length;
+    m_Forward = Vector3Normalize(m_Forward);
   }
 
 }

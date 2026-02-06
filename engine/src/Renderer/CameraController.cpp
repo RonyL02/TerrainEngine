@@ -1,5 +1,4 @@
 #include "TerrainEngine/CameraController.h"
-#include <cmath>
 #include <raymath.h>
 
 namespace TerrainEngine {
