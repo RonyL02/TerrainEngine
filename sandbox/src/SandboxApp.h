@@ -1,10 +1,8 @@
 #pragma once
 #include <TerrainEngine/Application.h>
 
-using namespace TerrainEngine;
-
 namespace Sandbox {
-  class SandboxApp : public Application {
+  class SandboxApp : public TerrainEngine::Application {
   public:
     SandboxApp();
 

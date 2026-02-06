@@ -2,10 +2,10 @@
 #include <raylib.h>
 
 namespace TerrainEngine {
-  Application::Application(const AppConfig &config) : m_Config(config) {}
+  Application::Application(AppConfig config) : m_Config(std::move(config)) {}
 
   void Application::Run() {
-    InitWindow(m_Config.width, m_Config.height, m_Config.title);
+    InitWindow(m_Config.width, m_Config.height, m_Config.title.c_str());
 
     SetTargetFPS(m_Config.fps);
 

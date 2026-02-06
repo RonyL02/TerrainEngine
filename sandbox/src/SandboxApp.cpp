@@ -1,12 +1,14 @@
 #include "SandboxApp.h"
 #include "WorldScene.h"
 #include <TerrainEngine/TerrainEngine.h>
+
 namespace Sandbox {
   SandboxApp::SandboxApp()
-      : Application({
-            .width = 1200,
-            .height = 700,
-            .title = "TerrainEngine",
+      : TerrainEngine::Application({
+            .width = 1280,
+            .height = 720,
+            .title = "TerrainEngine - Voxel Sandbox",
+            .fps = 60
         }) {}
 
   void SandboxApp::OnInit() { SetScene(std::make_unique<WorldScene>()); }

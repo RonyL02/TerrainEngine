@@ -8,9 +8,11 @@ namespace TerrainEngine {
     virtual ~Scene() = default;
 
     virtual void OnAttach() {}
+
     virtual void OnDetach() {}
 
     virtual void OnUpdate(float dt) = 0;
+
     virtual void OnRender() = 0;
   };
 

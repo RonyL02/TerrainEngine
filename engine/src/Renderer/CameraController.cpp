@@ -1,54 +1,60 @@
 #include "TerrainEngine/CameraController.h"
 #include <raymath.h>
+#include <algorithm>
 
 namespace TerrainEngine {
 
-  CameraController::CameraController(Camera camera)
-      : m_Camera(camera), m_MoveSpeed(5.0f), m_MouseSensitivity(0.1f) {
-    m_Yaw = -90.0f;
-    m_Pitch = 0.0f;
+  CameraController::CameraController() = default;
 
-    DisableCursor();
-  }
+  CameraController::CameraController(Camera camera) 
+      : m_Camera(std::move(camera)) {}
 
-  CameraController::CameraController()
-      : m_Camera(Camera()), m_MoveSpeed(5.0f), m_MouseSensitivity(0.1f) {
-    m_Yaw = -90.0f;
-    m_Pitch = 0.0f;
-
-    DisableCursor();
+  void CameraController::SetMouseControlEnabled(bool enabled) {
+    m_MouseControlEnabled = enabled;
+    if (enabled) {
+      DisableCursor();
+    } else {
+      EnableCursor();
+    }
   }
 
   void CameraController::Update(float dt) {
-    Vector2 mouseDelta = GetMouseDelta();
-    m_Yaw += mouseDelta.x * m_MouseSensitivity;
-    m_Pitch -= mouseDelta.y * m_MouseSensitivity;
+    if (m_MouseControlEnabled) {
+      const Vector2 mouseDelta = GetMouseDelta();
+      m_Yaw += mouseDelta.x * m_MouseSensitivity;
+      m_Pitch -= mouseDelta.y * m_MouseSensitivity;
 
-    m_Pitch = Clamp(m_Pitch, -89.0f, 89.0f);
-    m_Camera.SetYawPitch(m_Yaw, m_Pitch);
+      m_Pitch = Clamp(m_Pitch, -89.0f, 89.0f);
+      m_Camera.SetYawPitch(m_Yaw, m_Pitch);
+    }
 
-    Vector3 forward = m_Camera.GetForward();
-    Vector3 right = Vector3CrossProduct(forward, {0, 1, 0});
+    const Vector3 forward = m_Camera.GetForward();
+    const Vector3 right = Vector3CrossProduct(forward, Vector3{0.0f, 1.0f, 0.0f});
     Vector3 pos = m_Camera.GetPosition();
 
-    Vector3 flatForward = Vector3Normalize({forward.x, 0.0f, forward.z});
-    Vector3 flatRight = Vector3Normalize({right.x, 0.0f, right.z});
+    const Vector3 flatForward = Vector3Normalize(Vector3{forward.x, 0.0f, forward.z});
+    const Vector3 flatRight = Vector3Normalize(Vector3{right.x, 0.0f, right.z});
+
+    const float moveAmount = m_MoveSpeed * dt;
+
     if (IsKeyDown(KEY_W)) {
-      pos = Vector3Add(pos, Vector3Scale(flatForward, m_MoveSpeed * dt));
+      pos = Vector3Add(pos, Vector3Scale(flatForward, moveAmount));
     }
     if (IsKeyDown(KEY_S)) {
-      pos = Vector3Add(pos, Vector3Scale(flatForward, -m_MoveSpeed * dt));
+      pos = Vector3Add(pos, Vector3Scale(flatForward, -moveAmount));
     }
     if (IsKeyDown(KEY_A)) {
-      pos = Vector3Add(pos, Vector3Scale(flatRight, -m_MoveSpeed * dt));
+      pos = Vector3Add(pos, Vector3Scale(flatRight, -moveAmount));
     }
     if (IsKeyDown(KEY_D)) {
-      pos = Vector3Add(pos, Vector3Scale(flatRight, m_MoveSpeed * dt));
+      pos = Vector3Add(pos, Vector3Scale(flatRight, moveAmount));
     }
-    if (IsKeyDown(KEY_SPACE))
-      pos.y += m_MoveSpeed * dt;
-    if (IsKeyDown(KEY_LEFT_SHIFT))
-      pos.y -= m_MoveSpeed * dt;
+    if (IsKeyDown(KEY_SPACE)) {
+      pos.y += moveAmount;
+    }
+    if (IsKeyDown(KEY_LEFT_SHIFT)) {
+      pos.y -= moveAmount;
+    }
 
     m_Camera.SetPosition(pos);
   }
