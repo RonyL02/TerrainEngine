@@ -4,9 +4,9 @@
             "name": "Win32",
             "includePath": [
                 "${workspaceFolder}/engine/include",
-                "${workspaceFolder}/engine/src"
+                "${workspaceFolder}/engine/src",
+                "${workspaceFolder}/build/debug/_deps/raylib-build/raylib/include"
             ],
-            "compileCommands": "${workspaceFolder}/build/compile_commands.json",
             "cppStandard": "c++23",
             "intelliSenseMode": "windows-clang-x64"
         }
