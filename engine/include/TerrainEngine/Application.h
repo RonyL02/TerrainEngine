@@ -1,24 +1,32 @@
 #pragma once
+#include "Scene.h"
+#include <memory>
 
 namespace TerrainEngine {
+  struct AppConfig {
+    int width;
+    int height;
+    const char *title;
+    int fps = 60;
+  };
+
   class Application {
   public:
-    Application();
-    virtual ~Application();
+    Application(const AppConfig &config);
+    ~Application() = default;
 
     void Run();
+    void SetScene(std::unique_ptr<Scene> scene);
 
   protected:
     virtual void OnInit() {}
-    virtual void OnUpdate(float deltaTime) {}
-    virtual void OnRender() {}
     virtual void OnShutdown() {}
 
   private:
-    bool IsRunning();
-    void Render();
+    void Tick();
 
   private:
-    bool m_Running;
+    std::unique_ptr<Scene> m_Scene;
+    AppConfig m_Config;
   };
 }

@@ -1,43 +1,52 @@
 #include "TerrainEngine/Application.h"
-#include "TerrainEngine/Renderer.h"
-#include <chrono>
 #include <raylib.h>
 
 namespace TerrainEngine {
-  Application::Application() {}
-
-  Application::~Application() {}
+  Application::Application(const AppConfig &config) : m_Config(config) {}
 
   void Application::Run() {
-    SetTraceLogLevel(LOG_NONE);
-    InitWindow(300, 300, "eeee");
-    SetTargetFPS(60);
+    InitWindow(m_Config.width, m_Config.height, m_Config.title);
+
+    SetTargetFPS(m_Config.fps);
+
     OnInit();
-    m_Running = true;
-    auto lastFrame = std::chrono::steady_clock::now();
-    while (IsRunning()) {
-      auto now = std::chrono::steady_clock::now();
-      std::chrono::duration<float> deltaTime = now - lastFrame;
 
-      float deltaTimeSeconds = deltaTime.count();
-      lastFrame = now;
-
-      if (IsKeyPressed(KEY_C)) {
-        m_Running = false;
-      }
-
-      OnUpdate(deltaTimeSeconds);
-      Render();
+    while (!WindowShouldClose()) {
+      Tick();
     }
+
+    if (m_Scene) {
+      m_Scene->OnDetach();
+      m_Scene.reset();
+    }
+
     OnShutdown();
     CloseWindow();
   }
 
-  void Application::Render() {
-    Renderer::BeginFrame();
-    OnRender();
-    Renderer::EndFrame();
+  void Application::Tick() {
+    const float dt = GetFrameTime();
+
+    BeginDrawing();
+    ClearBackground(BLACK);
+
+    if (m_Scene) {
+      m_Scene->OnUpdate(dt);
+      m_Scene->OnRender();
+    }
+
+    EndDrawing();
   }
 
-  bool Application::IsRunning() { return !WindowShouldClose() && m_Running; }
+  void Application::SetScene(std::unique_ptr<Scene> scene) {
+    if (m_Scene) {
+      m_Scene->OnDetach();
+    }
+
+    m_Scene = std::move(scene);
+
+    if (m_Scene) {
+      m_Scene->OnAttach();
+    }
+  }
 }
