@@ -15,7 +15,10 @@ namespace TerrainEngine {
     virtual void OnShutdown() {}
 
   private:
-    bool m_Running;
+    bool IsRunning();
     void Render();
+
+  private:
+    bool m_Running;
   };
 }
