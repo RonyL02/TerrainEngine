@@ -1,5 +1,4 @@
 #pragma once
-#include "core/Input.h"
 
 struct GLFWwindow;
 namespace TerrainEngine

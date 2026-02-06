@@ -23,7 +23,7 @@ namespace TerrainEngine
         }
     }
 
-    void Scene::Render()
+    void Scene::Render() 
     {
         Application::Get().GetRenderer().StartDraw(this->cameraController.GetCamera());
 

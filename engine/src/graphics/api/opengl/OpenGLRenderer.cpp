@@ -3,10 +3,8 @@
 #include "core/Application.h"
 #include "core/Log.h"
 
-
 namespace TerrainEngine
 {
-
     OpenGLRenderer::OpenGLRenderer()
     {
         if (gl3wInit())
@@ -33,7 +31,6 @@ namespace TerrainEngine
             TE_ERROR("OpenGL Error: {}", error);
         }
     }
-
     
     void OpenGLRenderer::UpdateViewPort(int width, int height)
     {

@@ -17,10 +17,13 @@ namespace TerrainEngine
         
         void Render()
         {
+            this->OnRender();
             this->scene.Render();
         }
         
         virtual void OnUpdate() {}
+        virtual void OnRender() {}
+
 
     protected:
         Scene scene;

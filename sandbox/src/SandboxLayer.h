@@ -3,29 +3,32 @@
 
 using namespace TerrainEngine;
 
-class MovableObject : public TerrainEngine::Entity
-{
+class MovableObject : public Entity {
 public:
     using Entity::Entity;
     float speed = 4;
-    void Update() override
-    {
-        if (Input::IsKeyDown(KeyCodes::KEY_P))
-        {
+
+    void Update() override {
+        if (Input::IsKeyDown(KeyCodes::KEY_P)) {
             transform.position += glm::vec3{speed, 1, 1} * Time::DeltaTime();
         }
 
-        if (Input::IsKeyDown(KeyCodes::KEY_L))
-        {
+        if (Input::IsKeyDown(KeyCodes::KEY_L)) {
             transform.position -= glm::vec3{speed, 1, 1} * Time::DeltaTime();
         }
     }
 };
 
-class SandboxLayer : public TerrainEngine::Layer
-{
+class SandboxLayer : public Layer {
 public:
     SandboxLayer();
-    ~SandboxLayer();
+
+    ~SandboxLayer() override;
+
     void OnUpdate() override;
+
+    void OnRender() override;
+
+private:
+    VoxelChunkManager voxelChunkManager;
 };

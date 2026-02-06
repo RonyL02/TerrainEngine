@@ -2,62 +2,39 @@
 
 using namespace TerrainEngine;
 
-SandboxLayer::SandboxLayer() : TerrainEngine::Layer()
-{
-    TE_INFO("start sandox");
-
-    auto material = Material::Create(
-        Texture::Create("res/textures/dabadi.png"));
-    auto cubeMesh = Mesh::CreateCube();
-
-    auto cube = new Entity(
-        Transform{
-            .position = {0, 0, 0},
-            .rotation = {0, 0, 0},
-            .scale = {1, 1, 1}},
-        cubeMesh,
-        material);
-
-    auto cube2 = new MovableObject(
-        Transform{
-            .position = {0, 0, 3},
-            .rotation = {0, 0, 0},
-            .scale = {1, 1, 1}},
-        cubeMesh,
-        material);
-
-    auto cube3 = new Entity(
-        Transform{
-            .position = {0, 0, -3},
-            .rotation = {0, 0, 0},
-            .scale = {1, 1, 1}},
-        Mesh::CreateCube(), material);
-
-    this->scene.AddObject(cube);
-    this->scene.AddObject(cube2);
-    this->scene.AddObject(cube3);
+SandboxLayer::SandboxLayer() : Layer(),
+                               voxelChunkManager(VoxelChunkManagerConfig{
+                                   .chunkSize = 4,
+                                   .renderDistance = 6,
+                                   .worldDimensions = {2, 2, 2},
+                                   .material = Material::Create(Texture::Create("res/textures/dabadi.png"))
+                               }) {
+    TE_INFO("start sandbox");
+    voxelChunkManager.LoadChunks(scene.cameraController.GetCamera().GetPosition());
+    voxelChunkManager.UpdateChunkEntities();
 }
 
-SandboxLayer::~SandboxLayer()
-{
+SandboxLayer::~SandboxLayer() {
     TE_INFO("closing sandbox layer");
 }
 
-void SandboxLayer::OnUpdate()
-{
-    if (Input::IsKeyPressed(KeyCodes::KEY_C))
-    {
+void SandboxLayer::OnUpdate() {
+    if (Input::IsKeyPressed(KeyCodes::KEY_C)) {
         Application::Get().GetWindow().DisableCursor(true);
     }
-    if (Input::IsKeyPressed(KeyCodes::KEY_V))
-    {
+    if (Input::IsKeyPressed(KeyCodes::KEY_V)) {
         Application::Get().GetWindow().DisableCursor(false);
     }
-    if (Input::IsKeyPressed(KeyCodes::KEY_ESCAPE))
-    {
+    if (Input::IsKeyPressed(KeyCodes::KEY_ESCAPE)) {
+        TE_INFO("Escape pressed - closing application");
         Application::Get().Exit();
     }
 
     scene.cameraController.Move();
     scene.cameraController.UpdateDirection();
+    voxelChunkManager.Update(scene.cameraController.GetCamera().GetPosition());
+}
+
+void SandboxLayer::OnRender() {
+    voxelChunkManager.Render();
 }

@@ -30,6 +30,11 @@ namespace TerrainEngine
 
     void Input::SetKeyState(KeyCodes keyCode, KeyState state)
     {
+        if (keyCode == KeyCodes::KEY_LAST)
+        {
+            return;
+        }
+
         Input::CurrentKeyStates[(size_t)keyCode] = state;
     }
 

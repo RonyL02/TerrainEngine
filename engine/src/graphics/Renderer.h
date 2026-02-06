@@ -12,7 +12,7 @@ namespace TerrainEngine
         virtual ~Renderer() = default;
         virtual void UpdateViewPort(int width, int height) = 0;
         void StartDraw(const Camera &camera);
-        void Draw(Entity &entity);
+        void Draw(const Entity &entity) const;
         static std::unique_ptr<Renderer> Create();
 
     private:
