@@ -4,6 +4,7 @@ namespace TerrainEngine {
 
   class Scene {
   public:
+    Scene() = default;
     virtual ~Scene() = default;
 
     virtual void OnAttach() {}

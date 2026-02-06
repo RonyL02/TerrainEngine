@@ -20,4 +20,4 @@ target_include_directories(${lib_name}
         PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/src
 )
 
-target_link_libraries(${lib_name} PRIVATE raylib)
+target_link_libraries(${lib_name} PUBLIC raylib)

@@ -1,15 +1,25 @@
 #pragma once
+#include <TerrainEngine/Camera.h>
+#include <TerrainEngine/CameraController.h>
+#include <TerrainEngine/Renderer.h>
 #include <TerrainEngine/Scene.h>
 
-using namespace TerrainEngine;
-
 namespace Sandbox {
-  class WorldScene : public Scene {
+  class WorldScene : public TerrainEngine::Scene {
   public:
-    void OnAttach() override {}
+    void OnAttach() override {
+      m_CameraController.GetCamera().SetPosition({0, 0, 0});
+    }
 
-    void OnUpdate(float dt) override {}
+    void OnUpdate(float dt) override { m_CameraController.Update(dt); }
 
-    void OnRender() override {}
+    void OnRender() override {
+      TerrainEngine::Renderer::Begin3D(m_CameraController.GetCamera());
+      DrawCube({0, 0, 0}, 4, 4, 4, RED);
+      TerrainEngine::Renderer::End3D();
+    }
+
+  private:
+    TerrainEngine::CameraController m_CameraController;
   };
 }
